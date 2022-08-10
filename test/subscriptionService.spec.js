@@ -6,6 +6,7 @@ const models = require('../src/models');
 describe('GET /subscriptionService는', () => {
     const subscriptionServices = [
         {
+            id: 1,
             nameEng: 'netflex',
             nameKr: '넷플렉스',
             logoPath: '/netflex.jpg',
@@ -15,6 +16,7 @@ describe('GET /subscriptionService는', () => {
             categoryId: 1,
         },
         {
+            id: 2,
             nameEng: 'youtube',
             nameKr: '유튜브',
             logoPath: '/youtube.jpg',
@@ -24,8 +26,9 @@ describe('GET /subscriptionService는', () => {
             categoryId: 1,
         },
         {
-            nameEng: '디즈니플러스',
-            nameKr: 'disney plus',
+            id: 3,
+            nameEng: 'disney plus',
+            nameKr: '디즈니플러스',
             logoPath: '/disney_plus.jpg',
             description: '마블',
             updateBy: 'admin',
@@ -63,20 +66,13 @@ describe('GET /subscriptionService는', () => {
         },
     ];
 
-    before(() => models.sequelize.sync({ force: true }));
+    before(() => models.sequelize.sync({ force: false }));
     before(() => {
         models.Category.bulkCreate(category);
         models.SubscriptionService.bulkCreate(subscriptionServices);
         models.ComparisonItem.bulkCreate(comparisonItems);
         models.ComparisonValue.bulkCreate(comparisonValues);
-    });
-
-    after(() => {
-        models.ComparisonValue.destroy({ where: {} });
-        models.ComparisonItem.destroy({ where: {} });
-        models.SubscriptionService.destroy({ where: {} });
-        models.Category.destroy({ where: {} });
-    });
+    })
 
     describe('성공시', () => {
         it('구독서비스 객체를 담은 배열로 응답한다 ', (done) => {
