@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Run mocha",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "args": [
+                "--opts", "test/mocha.opts",
+                "--timeout", "0", // 디버깅 시간이 테스트 결과에 영향을 주지 않기 위해서,
+                "--colors", // terminal color와 같은 색으로 출력
+            ],
+            // 디버그 실행 시 DEBUG CONSOLE 오픈
+            "internalConsoleOptions": "openOnSessionStart"
+
+            // 디버그 실행 시 TERMINAL에서 실행
+            // "console": "integratedTerminal",
+            // "internalConsoleOptions": "neverOpen" 
+        }
+    ]
+}
