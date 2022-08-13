@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
+const { swaggerUi, specs } = require('./config/swagger/swagger');
+
 const nunjucks = require('nunjucks');
 
 const { sequelize } = require('./src/models'); // require('./models/index.js')와 같음 - index.js는 require 시 이름 생략 가능
@@ -13,7 +15,7 @@ const buildErrorResponse = require('./src/utils/exceptionUtils').buildErrorRespo
 
 const app = express(); // require해온 express 실행
 
-app.set('port', process.env.PORT || 3000); // 포트번호 3001로 세팅
+app.set('port', process.env.PORT || 4000); // 포트번호 4000로 세팅
 app.set('view engine', 'html');
 
 nunjucks.configure('views', {
@@ -31,6 +33,7 @@ sequelize
         console.error(err);
     });
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
 app.use(morgan('dev'));
 app.use('/', express.static(path.join(__dirname, 'public'))); // static이라서 사용자가 public 아래의 하위 폴더에 모두 접근 가능
 app.use(express.json());

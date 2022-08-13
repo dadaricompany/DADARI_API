@@ -22,7 +22,7 @@ const getMainSubscriptionService = async (ssDto, pageDto) => {
     });
     logger.debug(JSON.stringify(main));
 
-    return subService;
+    return main;
 };
 
 module.exports = {

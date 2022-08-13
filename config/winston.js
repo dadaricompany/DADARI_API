@@ -4,7 +4,7 @@ const path = require('path');
 
 const { combine, timestamp, printf, colorize } = winston.format;
 
-const __dirname = process.cwd();
+const dirname = process.cwd();
 const logDir = 'logs';
 
 const levels = {
@@ -55,7 +55,7 @@ const transports = [
     new WinstonDaily({
         level: 'error',
         datePattern: 'YYYY-MM-DD',
-        dirname: path.join(__dirname, logDir, '/error'),
+        dirname: path.join(dirname, logDir, '/error'),
         filename: '%DATE%.error.log',
         maxFiles: 30,
         zippedArchive: true,
@@ -64,7 +64,7 @@ const transports = [
     new WinstonDaily({
         level: 'debug',
         datePattern: 'YYYY-MM-DD',
-        dirname: path.join(__dirname, logDir, '/all'),
+        dirname: path.join(dirname, logDir, '/all'),
         filename: '%DATE%.all.log',
         maxFiles: 7,
         zippedArchive: true,

@@ -16,6 +16,7 @@
         "nodemon": "^2.0.15",
         "should": "^13.2.3",
         "supertest": "^6.2.4",
+        "swagger-autogen": "^2.21.5",
         "swagger-jsdoc": "^6.2.5",
         "swagger-ui-express": "^4.5.0"
     },

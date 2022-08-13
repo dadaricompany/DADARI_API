@@ -4,6 +4,12 @@ const PaginationUtil = require('../utils/PaginationUtil');
 const wrapAsync = require('../utils/exceptionUtils').wrapAsync;
 const router = express.Router();
 const { body, header, query, validationResult } = require('express-validator');
+/**
+ * @swagger
+ * tags:
+ *   name: Users
+ *   description: 유저 추가 수정 삭제 조회
+ */
 
 router.get(
     '/',
@@ -27,6 +33,40 @@ router.get(
     })
 );
 
+/**
+ * @swagger
+ * paths:
+ *  /subscriptionService/main:
+ *   post:
+ *    tags:
+ *    - subscriptionService
+ *    description: 메인 구독서비스 조회
+ *    parameters:
+ *    - in: body
+ *      name: body
+ *      required: true
+ *      schema:
+ *       properties:
+ *        id:
+ *         type: string
+ *        pw:
+ *         type: string
+ *
+ *    responses:
+ *     200:
+ *      description: 닉네임 조회 성공
+ *      schema:
+ *       properties:
+ *        message:
+ *         type: string
+ *     401:
+ *      description: 닉네임 조회 실패
+ *      schema:
+ *       properties:
+ *        message:
+ *         type: string
+ *
+ */
 router.get(
     '/main',
     [
