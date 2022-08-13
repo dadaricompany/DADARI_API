@@ -28,6 +28,5 @@ module.exports = class Category extends Sequelize.Model {
         db.Category.hasMany(db.SubscriptionService, { foreignKey: 'categoryId' });
         db.Category.hasMany(db.ComparisonItem, { foreignKey: 'categoryId' });
         db.Category.hasMany(db.ComparisonValue, { foreignKey: 'categoryId' });
-        db.Category.belongsTo(db.CategoryTemplate, { foreignKey: 'categoryId' });
     }
 };

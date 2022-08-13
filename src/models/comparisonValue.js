@@ -20,5 +20,8 @@ module.exports = class ComparisonValue extends Sequelize.Model {
             }
         );
     }
-    static associate(db) {}
+    static associate(db) {
+        db.ComparisonValue.belongsTo(db.SubscriptionService, { foreignKey: 'subscriptionServiceId' });
+        db.ComparisonValue.belongsTo(db.ComparisonItem, { foreignKey: 'comparisonItemId' });
+    }
 };

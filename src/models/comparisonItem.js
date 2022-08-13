@@ -30,6 +30,5 @@ module.exports = class ComparisonItem extends Sequelize.Model {
     }
     static associate(db) {
         db.ComparisonItem.belongsTo(db.Category, { foreignKey: 'categoryId' });
-        db.ComparisonItem.belongsTo(db.ComparisonValue, { foreignKey: 'comparisonItemId' });
     }
 };

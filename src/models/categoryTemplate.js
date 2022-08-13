@@ -25,6 +25,6 @@ module.exports = class CategoryTemplate extends Sequelize.Model {
         );
     }
     static associate(db) {
-        db.CategoryTemplate.hasMany(db.CategoryTemplate, { foreignKey: 'categoryTemplateId' });
+        db.CategoryTemplate.hasMany(db.Category, { foreignKey: 'categoryTemplateId' });
 }
 };

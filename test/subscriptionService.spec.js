@@ -42,6 +42,10 @@ describe('GET /subscriptionService는', () => {
             id: 1,
             name: '영화/드라마',
             description: '영화/드라마',
+        }, {
+            id: 2,
+            name: '음악',
+            description: '음악',
         },
     ];
 
@@ -53,15 +57,26 @@ describe('GET /subscriptionService는', () => {
             type: 'NUMBER',
             categoryId: 1,
         },
+        {
+            id: 2,
+            name: '제공서비스',
+            unit: '',
+            type: 'TEXT',
+            categoryId: 1,
+        },
     ];
 
     const comparisonValues = [
         {
             id: 1,
-            name: '가격',
-            unit: '원',
-            type: 'NUMBER',
-            categoryId: 1,
+            value: '9500',
+            comparisonItemId: 1,
+            subscriptionServiceId: 1,
+        },
+        {
+            id: 2,
+            value: '영화, 드라마',
+            comparisonItemId: 2,
             subscriptionServiceId: 1,
         },
     ];
