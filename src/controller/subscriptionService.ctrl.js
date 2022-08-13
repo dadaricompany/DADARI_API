@@ -27,6 +27,28 @@ router.get(
     })
 );
 
+router.get(
+    '/main',
+    [
+        query('limit').optional().isNumeric().withMessage('숫자를 입력해주세요'),
+        query('page').optional().isNumeric().withMessage('숫자를 입력해주세요'),
+    ],
+    wrapAsync(async (req, res, next) => {
+        // 값 검증
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        var subService = await svc.getMainSubscriptionService(
+            {},
+            PaginationUtil.buildOffsetLimit(req) // pagination
+        );
+
+        res.json(subService);
+    })
+);
+
 router.post(
     '/',
     [

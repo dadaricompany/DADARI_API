@@ -1,3 +1,5 @@
+const logger = require('../../config/winston');
+
 // global exception catch
 wrapAsync = (fn) => {
     return function (req, res, next) {
@@ -12,6 +14,9 @@ buildErrorResponse = (err, req, res, next) => {
     res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
     res.status(err.status || 500);
     res.render('error');
+
+    logger.error(err.message);
+    logger.error(err.stack);
 };
 
 module.exports = { wrapAsync, buildErrorResponse };

@@ -1,0 +1,55 @@
+[
+    {
+        "id": 1,
+        "name": "영화/드라마",
+        "description": "영화/드라마",
+        "createdAt": "2022-08-13T11:59:35.000Z",
+        "updatedAt": "2022-08-13T11:59:35.000Z",
+        "SubscriptionServices": [
+            {
+                "id": 3,
+                "nameEng": "disney plus",
+                "nameKr": "디즈니플러스",
+                "logoPath": "/disney_plus.jpg",
+                "description": "마블",
+                "updateBy": "admin",
+                "createBy": "admin",
+                "createdAt": "2022-08-13T11:59:35.000Z",
+                "updatedAt": "2022-08-13T11:59:35.000Z",
+                "categoryId": 1
+            },
+            {
+                "id": 2,
+                "nameEng": "youtube",
+                "nameKr": "유튜브",
+                "logoPath": "/youtube.jpg",
+                "description": "유튜브",
+                "updateBy": "admin",
+                "createBy": "admin",
+                "createdAt": "2022-08-13T11:59:35.000Z",
+                "updatedAt": "2022-08-13T11:59:35.000Z",
+                "categoryId": 1
+            },
+            {
+                "id": 1,
+                "nameEng": "netflex",
+                "nameKr": "넷플렉스",
+                "logoPath": "/netflex.jpg",
+                "description": "1등서비스",
+                "updateBy": "admin",
+                "createBy": "admin",
+                "createdAt": "2022-08-13T11:59:35.000Z",
+                "updatedAt": "2022-08-13T11:59:35.000Z",
+                "categoryId": 1
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "음악",
+        "description": "음악",
+        "createdAt": "2022-08-13T11:59:35.000Z",
+        "updatedAt": "2022-08-13T11:59:35.000Z",
+        "SubscriptionServices": []
+    }
+]
