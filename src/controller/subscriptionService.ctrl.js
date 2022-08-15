@@ -1,6 +1,6 @@
 const express = require('express');
 const svc = require('../service/subscriptionService.svc');
-const PaginationUtil = require('../utils/PaginationUtil');
+const PaginationUtil = require('../utils/paginationUtil');
 const wrapAsync = require('../utils/exceptionUtils').wrapAsync;
 const router = express.Router();
 const { body, header, query, validationResult } = require('express-validator');
