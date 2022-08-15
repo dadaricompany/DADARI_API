@@ -22,6 +22,7 @@ module.exports = class ComparisonItem extends Sequelize.Model {
                 timestamps: true,
                 modelName: 'ComparisonItem',
                 tableName: 'comparison_item',
+                schema: 'dadari-db',
                 paranoid: false,
                 charset: 'utf8',
                 collate: 'utf8_general_ci',

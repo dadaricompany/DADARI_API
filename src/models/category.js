@@ -18,6 +18,7 @@ module.exports = class Category extends Sequelize.Model {
                 timestamps: true,
                 modelName: 'Category',
                 tableName: 'category',
+                schema: 'dadari-db',
                 paranoid: false,
                 charset: 'utf8',
                 collate: 'utf8_general_ci',

@@ -18,6 +18,7 @@ module.exports = class CategoryTemplate extends Sequelize.Model {
                 timestamps: false,
                 modelName: 'CategoryTemplate',
                 tableName: 'category_template',
+                schema: 'dadari-db',
                 paranoid: false,
                 charset: 'utf8',
                 collate: 'utf8_general_ci',
@@ -26,5 +27,5 @@ module.exports = class CategoryTemplate extends Sequelize.Model {
     }
     static associate(db) {
         db.CategoryTemplate.hasMany(db.Category, { foreignKey: 'categoryTemplateId' });
-}
+    }
 };
