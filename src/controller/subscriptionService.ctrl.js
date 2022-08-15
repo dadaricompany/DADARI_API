@@ -7,8 +7,8 @@ const { body, header, query, validationResult } = require('express-validator');
 /**
  * @swagger
  * tags:
- *   name: Users
- *   description: 유저 추가 수정 삭제 조회
+ *   name: Main
+ *   description: Main화면 조회 API
  */
 
 router.get(
@@ -37,33 +37,34 @@ router.get(
  * @swagger
  * paths:
  *  /subscriptionService/main:
- *   post:
+ *   get:
  *    tags:
- *    - subscriptionService
- *    description: 메인 구독서비스 조회
+ *    - Category
+ *    description: 메인화면 조회 (카테고리)
  *    parameters:
- *    - in: body
- *      name: body
- *      required: true
+ *    - in: query
+ *      name: page
+ *      required: false
  *      schema:
- *       properties:
- *        id:
- *         type: string
- *        pw:
- *         type: string
+ *       type: integer
+ *    - in: query
+ *      name: limit
+ *      required: false
+ *      schema:
+ *       type: integer
  *
  *    responses:
  *     200:
- *      description: 닉네임 조회 성공
+ *      description: 메인화면 API 조회 성공
  *      schema:
  *       properties:
- *        message:
+ *        main:
  *         type: string
- *     401:
- *      description: 닉네임 조회 실패
+ *     400:
+ *      description: 메인화면 API 조회 실패
  *      schema:
  *       properties:
- *        message:
+ *        error:
  *         type: string
  *
  */

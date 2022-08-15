@@ -84,12 +84,10 @@ describe('GET /subscriptionService는', () => {
 
     before(() => models.sequelize.sync({ force: false }));
     before(() => {
-        /*
         models.Category.bulkCreate(category);
         models.SubscriptionService.bulkCreate(subscriptionServices);
         models.ComparisonItem.bulkCreate(comparisonItems);
         models.ComparisonValue.bulkCreate(comparisonValues);
-        */
     });
 
     describe('메인목록 조회시', () => {
