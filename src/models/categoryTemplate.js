@@ -16,7 +16,7 @@ module.exports = class CategoryTemplate extends Sequelize.Model {
             {
                 sequelize,
                 timestamps: false,
-                modelName: 'CategoryTemplate',
+                modelName: 'categoryTemplate',
                 tableName: 'category_template',
                 schema: 'dadari-db',
                 paranoid: false,

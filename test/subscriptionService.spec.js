@@ -2,6 +2,7 @@ const request = require('supertest');
 const should = require('should');
 const app = require('../app.js');
 const models = require('../src/models');
+const logger = require('../config/winston.js');
 
 describe('GET /subscriptionService는', () => {
     const subscriptionServices = [
@@ -93,7 +94,8 @@ describe('GET /subscriptionService는', () => {
     describe('메인목록 조회시', () => {
         it('구독서비스 객체를 담은 배열로 응답한다 ', (done) => {
             request(app)
-                .get('/subscriptionService/main')
+                //
+                .get('/subscriptionService/main?page=0&limit=two')
                 .end((err, res) => {
                     res.body.should.be.instanceOf(Array);
                     done();

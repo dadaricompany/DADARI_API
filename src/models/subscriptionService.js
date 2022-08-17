@@ -43,7 +43,7 @@ module.exports = class SubscriptionService extends Sequelize.Model {
                 sequelize, // static init 메서드의 매개변수와 연결되는 옵션
                 timestamps: true, // true: Sequelize가 자동으로 createdAt과 updatedAt 컬럼을 추가
                 underscored: false, // true: create_at같이(스네이크 케이스), false: createdAt같이(캐멀 케이스)
-                modelName: 'SubscriptionService', // 모델 이름
+                modelName: 'subscriptionService', // 모델 이름
                 tableName: 'subscription_service', // 테이블 이름
                 schema: 'dadari-db',
                 paranoid: false, // 컬럼을 지워도 완전히 지워지지 않고 deletedAt이라는 컬럼이 생김(지운 시각이 기록됨)

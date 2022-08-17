@@ -12,7 +12,7 @@ module.exports = class ComparisonValue extends Sequelize.Model {
             {
                 sequelize,
                 timestamps: true,
-                modelName: 'ComparisonValue',
+                modelName: 'comparisonValue',
                 tableName: 'comparison_value',
                 schema: 'dadari-db',
                 paranoid: false,

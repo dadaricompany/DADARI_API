@@ -20,7 +20,7 @@ module.exports = class ComparisonItem extends Sequelize.Model {
             {
                 sequelize,
                 timestamps: true,
-                modelName: 'ComparisonItem',
+                modelName: 'comparisonItem',
                 tableName: 'comparison_item',
                 schema: 'dadari-db',
                 paranoid: false,

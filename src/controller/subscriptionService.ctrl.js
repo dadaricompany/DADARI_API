@@ -59,7 +59,31 @@ router.get(
  *      schema:
  *       properties:
  *        main:
- *         type: string
+ *         type: array
+ *         items:
+ *          type: object
+ *          properties:
+ *           id:
+ *            type: integer
+ *           name:
+ *            type: string
+ *           description:
+ *            type: string
+ *           subscriptionServices:
+ *            type: array
+ *            items:
+ *             type: object
+ *             properties:
+ *              id:
+ *               type: integer
+ *              nameEng:
+ *               type: string
+ *              nameKr:
+ *               type: string
+ *              logoPath:
+ *               type: string
+ *              description:
+ *               type: string
  *     400:
  *      description: 메인화면 API 조회 실패
  *      schema:
@@ -78,7 +102,7 @@ router.get(
         // 값 검증
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            throw new { message: '입력값을 확인해주세요.', stack: errors.array() }();
         }
 
         var subService = await svc.getMainSubscriptionService(

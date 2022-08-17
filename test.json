@@ -3,9 +3,9 @@
         "id": 1,
         "name": "영화/드라마",
         "description": "영화/드라마",
-        "createdAt": "2022-08-13T11:59:35.000Z",
-        "updatedAt": "2022-08-13T11:59:35.000Z",
-        "SubscriptionServices": [
+        "createdAt": "2022-08-15T13:32:26.333Z",
+        "updatedAt": "2022-08-15T13:32:26.333Z",
+        "subscriptionServices": [
             {
                 "id": 3,
                 "nameEng": "disney plus",
@@ -14,8 +14,8 @@
                 "description": "마블",
                 "updateBy": "admin",
                 "createBy": "admin",
-                "createdAt": "2022-08-13T11:59:35.000Z",
-                "updatedAt": "2022-08-13T11:59:35.000Z",
+                "createdAt": "2022-08-15T13:32:26.335Z",
+                "updatedAt": "2022-08-15T13:32:26.335Z",
                 "categoryId": 1
             },
             {
@@ -26,8 +26,8 @@
                 "description": "유튜브",
                 "updateBy": "admin",
                 "createBy": "admin",
-                "createdAt": "2022-08-13T11:59:35.000Z",
-                "updatedAt": "2022-08-13T11:59:35.000Z",
+                "createdAt": "2022-08-15T13:32:26.335Z",
+                "updatedAt": "2022-08-15T13:32:26.335Z",
                 "categoryId": 1
             },
             {
@@ -38,8 +38,8 @@
                 "description": "1등서비스",
                 "updateBy": "admin",
                 "createBy": "admin",
-                "createdAt": "2022-08-13T11:59:35.000Z",
-                "updatedAt": "2022-08-13T11:59:35.000Z",
+                "createdAt": "2022-08-15T13:32:26.335Z",
+                "updatedAt": "2022-08-15T13:32:26.335Z",
                 "categoryId": 1
             }
         ]
@@ -48,8 +48,8 @@
         "id": 2,
         "name": "음악",
         "description": "음악",
-        "createdAt": "2022-08-13T11:59:35.000Z",
-        "updatedAt": "2022-08-13T11:59:35.000Z",
-        "SubscriptionServices": []
+        "createdAt": "2022-08-15T13:32:26.333Z",
+        "updatedAt": "2022-08-15T13:32:26.333Z",
+        "subscriptionServices": []
     }
 ]
