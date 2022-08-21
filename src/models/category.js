@@ -4,13 +4,25 @@ module.exports = class Category extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
-                name: {
+                nameKr: {
+                    type: Sequelize.STRING(50),
+                    allowNull: false,
+                },
+                nameEng: {
                     type: Sequelize.STRING(50),
                     allowNull: false,
                 },
                 description: {
                     type: Sequelize.STRING(500),
                     allowNull: true,
+                },
+                logoPath: {
+                    type: Sequelize.STRING(100),
+                    allowNull: false,
+                },
+                sort: {
+                    type: Sequelize.INTEGER.UNSIGNED,
+                    allowNull: false,
                 },
             },
             {

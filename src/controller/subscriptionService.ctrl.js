@@ -40,7 +40,7 @@ router.get(
  *  /subscriptionService/main:
  *   get:
  *    tags:
- *    - Category
+ *    - Main API
  *    description: 메인화면 조회 (카테고리)
  *    parameters:
  *    - in: query
@@ -69,6 +69,8 @@ router.get(
  *            name:
  *             type: string
  *            description:
+ *             type: string
+ *            logoPath:
  *             type: string
  *            subscriptionServices:
  *             type: array
@@ -113,14 +115,14 @@ router.get(
             PaginationUtil.buildOffsetLimit(req) // pagination
         );
 
-        var main = {
+        var result = {
             main: subService,
         };
 
         //var error = undefined;
         //logger.debug(error.print());
-        logger.debug(JSON.stringify(main));
-        res.json(main);
+        logger.debug(JSON.stringify(result));
+        res.json(result);
     })
 );
 

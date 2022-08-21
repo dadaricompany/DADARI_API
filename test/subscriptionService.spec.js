@@ -10,7 +10,7 @@ describe('GET /subscriptionService는', () => {
             id: 1,
             nameEng: 'netflex',
             nameKr: '넷플렉스',
-            logoPath: '/netflex.jpg',
+            logoPath: '/logo/subscriptionService/netflex.jpg',
             description: '1등서비스',
             updateBy: 'admin',
             createBy: 'admin',
@@ -20,7 +20,7 @@ describe('GET /subscriptionService는', () => {
             id: 2,
             nameEng: 'youtube',
             nameKr: '유튜브',
-            logoPath: '/youtube.jpg',
+            logoPath: '/logo/subscriptionService/youtube.jpg',
             description: '유튜브',
             updateBy: 'admin',
             createBy: 'admin',
@@ -30,7 +30,7 @@ describe('GET /subscriptionService는', () => {
             id: 3,
             nameEng: 'disney plus',
             nameKr: '디즈니플러스',
-            logoPath: '/disney_plus.jpg',
+            logoPath: '/logo/subscriptionService/disney_plus.jpg',
             description: '마블',
             updateBy: 'admin',
             createBy: 'admin',
@@ -41,13 +41,19 @@ describe('GET /subscriptionService는', () => {
     const category = [
         {
             id: 1,
-            name: '영화/드라마',
+            nameKr: '영화/드라마',
+            nameEng: 'movie',
             description: '영화/드라마',
+            logoPath: '/logo/category/movie.jpg',
+            sort: 1,
         },
         {
             id: 2,
-            name: '음악',
+            nameKr: '음악',
+            nameEng: 'music',
             description: '음악',
+            logoPath: '/logo/category/music.jpg',
+            sort: 2,
         },
     ];
 
