@@ -89,14 +89,14 @@ describe('GET /subscriptionService는', () => {
         },
     ];
 
-    before(() => {
-        app.models.sequelize
+    before(async () => {
+        await app.models.sequelize
             .sync({ force: false })
-            .then(async () => {
-                await app.models.Category.bulkCreate(category);
-                await app.models.SubscriptionService.bulkCreate(subscriptionServices);
-                await app.models.ComparisonItem.bulkCreate(comparisonItems);
-                await app.models.ComparisonValue.bulkCreate(comparisonValues);
+            .then(() => {
+                app.models.Category.bulkCreate(category);
+                app.models.SubscriptionService.bulkCreate(subscriptionServices);
+                app.models.ComparisonItem.bulkCreate(comparisonItems);
+                app.models.ComparisonValue.bulkCreate(comparisonValues);
             })
             .catch((err) => {
                 console.error('>>>>', err);

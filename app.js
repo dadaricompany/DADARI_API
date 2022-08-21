@@ -26,9 +26,8 @@ nunjucks.configure('views', {
 
 if (process.env.NODE_ENV !== 'test') {
     // test 코드에서 db sync를 await로 맞춤
-
     db.sequelize
-        .sync({ force: false }) // force: true면 서버 실행 시 마다 테이블을 재생성, 테이블을 잘못 만든 경우에 true로 설정
+        .sync({ force: false }) // true : 테이블을 재생성
         .then(() => {
             console.log('데이터베이스 연결 성공');
         })
