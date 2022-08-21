@@ -5,7 +5,6 @@ const app = require('../app.js');
 const logger = require('../config/winston.js');
 
 describe('GET /subscriptionService는', () => {
-    this.timeout(15000);
     const subscriptionServices = [
         {
             id: 1,
@@ -90,14 +89,19 @@ describe('GET /subscriptionService는', () => {
         },
     ];
 
-    before(async () => {
-        await app.models.sequelize.sync({ force: false });
+    before(() => {
+        app.models.sequelize
+            .sync({ force: false })
+            .then(async () => {
+                await app.models.Category.bulkCreate(category);
+                await app.models.SubscriptionService.bulkCreate(subscriptionServices);
+                await app.models.ComparisonItem.bulkCreate(comparisonItems);
+                await app.models.ComparisonValue.bulkCreate(comparisonValues);
+            })
+            .catch((err) => {
+                console.error('>>>>', err);
+            });
         //const transaction = await app.models.sequelize.transaction();
-
-        await app.models.Category.bulkCreate(category);
-        await app.models.SubscriptionService.bulkCreate(subscriptionServices);
-        await app.models.ComparisonItem.bulkCreate(comparisonItems);
-        await app.models.ComparisonValue.bulkCreate(comparisonValues);
 
         //await transaction.commit();
     });
