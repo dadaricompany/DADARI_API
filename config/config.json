@@ -1,7 +1,7 @@
 {
     "development": {
-        "username": "${{ secrets.DB_USERNAME }}",
-        "password": "${{ secrets.DB_PASSWORD }}",
+        "username": "${{ secrets.DB_HOST }}",
+        "password": "${{ secrets.DB_HOST }}",
         "database": "postgres",
         "host": "${{ secrets.DB_HOST }}",
         "dialect": "postgresql",
