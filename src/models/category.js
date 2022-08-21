@@ -21,7 +21,7 @@ module.exports = class Category extends Sequelize.Model {
                     allowNull: false,
                 },
                 sort: {
-                    type: Sequelize.INTEGER.UNSIGNED,
+                    type: Sequelize.INTEGER,
                     allowNull: false,
                 },
             },
