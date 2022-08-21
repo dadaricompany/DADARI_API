@@ -20,3 +20,7 @@ jobs:
     - run: npm ci
     - run: npm install
     - run: npm test
+      env:
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_USERNAME: ${{ secrets.DB_USERNAME }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
