@@ -17,8 +17,8 @@ module.exports = class Comment extends Sequelize.Model {
             {
                 sequelize,
                 timestamps: false,
-                modelName: 'Comment',
-                tableName: 'comments',
+                modelName: 'comment',
+                tableName: 'comment',
                 schema: 'dadari-db',
                 paranoid: false,
                 charset: 'utf8mb4',

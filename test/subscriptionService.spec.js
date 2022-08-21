@@ -1,7 +1,7 @@
 const request = require('supertest');
 const should = require('should');
 const app = require('../app.js');
-const models = require('../src/models');
+//const models = require('../src/models');
 const logger = require('../config/winston.js');
 
 describe('GET /subscriptionService는', () => {
@@ -89,12 +89,16 @@ describe('GET /subscriptionService는', () => {
         },
     ];
 
-    before(() => models.sequelize.sync({ force: false }));
-    before(() => {
-        models.Category.bulkCreate(category);
-        models.SubscriptionService.bulkCreate(subscriptionServices);
-        models.ComparisonItem.bulkCreate(comparisonItems);
-        models.ComparisonValue.bulkCreate(comparisonValues);
+    before(async () => {
+        await app.models.sequelize.sync({ force: false });
+        //const transaction = await app.models.sequelize.transaction();
+
+        await app.models.Category.bulkCreate(category);
+        await app.models.SubscriptionService.bulkCreate(subscriptionServices);
+        await app.models.ComparisonItem.bulkCreate(comparisonItems);
+        await app.models.ComparisonValue.bulkCreate(comparisonValues);
+
+        //await transaction.commit();
     });
 
     describe('메인목록 조회시', () => {

@@ -1,6 +1,5 @@
 const SubscriptionService = require('../models/subscriptionService');
 const Category = require('../models/category');
-const { models } = require('../models');
 
 const getSubscriptionService = async (ssDto, pageDto) => {
     const subService = await SubscriptionService.findAll({
