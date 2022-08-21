@@ -5,6 +5,7 @@ const app = require('../app.js');
 const logger = require('../config/winston.js');
 
 describe('GET /subscriptionService는', () => {
+    this.timeout(15000);
     const subscriptionServices = [
         {
             id: 1,
