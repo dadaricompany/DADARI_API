@@ -55,7 +55,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_TOKEN }}
+          password: ${{ secrets.DADARI_API_TOKEN }}
       # 3000 -> 80 포트로 수행하도록 지정
       - name: Docker run
         run: |
