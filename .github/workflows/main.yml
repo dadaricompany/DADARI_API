@@ -61,6 +61,7 @@ jobs:
         run: |
           docker stop ${{ env.NAME }} && docker rm ${{ env.NAME }} && docker rmi ${{ env.DOCKER_IMAGE }}:latest
           docker run -e -d -p 4000:4000 --name ${{ env.NAME }} --restart always ${{ env.DOCKER_IMAGE }}:latest
+          
           env:
             DB_HOST: ${{ secrets.DB_HOST }}
             DB_USERNAME: ${{ secrets.DB_USERNAME }}
