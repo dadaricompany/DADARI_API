@@ -4,7 +4,11 @@ module.exports = class Category extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
-                name: {
+                nameKr: {
+                    type: Sequelize.STRING(50),
+                    allowNull: false,
+                },
+                nameEng: {
                     type: Sequelize.STRING(50),
                     allowNull: false,
                 },
@@ -12,12 +16,21 @@ module.exports = class Category extends Sequelize.Model {
                     type: Sequelize.STRING(500),
                     allowNull: true,
                 },
+                logoPath: {
+                    type: Sequelize.STRING(100),
+                    allowNull: false,
+                },
+                sort: {
+                    type: Sequelize.INTEGER,
+                    allowNull: false,
+                },
             },
             {
                 sequelize,
                 timestamps: true,
-                modelName: 'Category',
+                modelName: 'category',
                 tableName: 'category',
+                schema: 'dadari-db',
                 paranoid: false,
                 charset: 'utf8',
                 collate: 'utf8_general_ci',

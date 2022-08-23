@@ -1,23 +1,34 @@
 {
-  "development": {
-    "username": "admin",
-    "password": "tjddud1!",
-    "database": "DADARI_DB",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
-  "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  }
+    "development": {
+        "username": "${{ secrets.DB_HOST }}",
+        "password": "${{ secrets.DB_HOST }}",
+        "database": "postgres",
+        "host": "${{ secrets.DB_HOST }}",
+        "dialect": "postgresql",
+        "logging": true
+    },
+    "test": {
+        "username": "${{ secrets.DB_HOST }}",
+        "password": "${{ secrets.DB_HOST }}",
+        "database": "postgres",
+        "host": "${{ secrets.DB_HOST }}",
+        "dialect": "postgresql",
+        "logging": true
+    },
+    "production": {
+        "username": "${{ secrets.DB_HOST }}",
+        "password": "${{ secrets.DB_HOST }}",
+        "database": "postgres",
+        "host": "${{ secrets.DB_HOST }}",
+        "dialect": "postgresql",
+        "logging": true
+    },
+    "//": {
+        "username": "admin",
+        "password": "tjddud1!",
+        "database": "DADARI_DB",
+        "host": "127.0.0.1",
+        "dialect": "mysql",
+        "logging": true
+    }
 }

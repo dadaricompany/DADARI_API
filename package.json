@@ -4,7 +4,8 @@
     "description": "",
     "main": "app.js",
     "scripts": {
-        "test": "mocha test/subscriptionService.spec.js",
+        "//": "mocha src/service/test/subscriptionService.spec.js",
+        "test": "NODE_ENV=test mocha test/subscriptionService.spec.js --timeout 15000 -exit",
         "debug": "mocha --inspect-brk",
         "start": "nodemon app"
     },
@@ -14,7 +15,10 @@
         "mocha": "^10.0.0",
         "nodemon": "^2.0.15",
         "should": "^13.2.3",
-        "supertest": "^6.2.4"
+        "supertest": "^6.2.4",
+        "swagger-autogen": "^2.21.5",
+        "swagger-jsdoc": "^6.2.5",
+        "swagger-ui-express": "^4.5.0"
     },
     "dependencies": {
         "express": "^4.17.2",
@@ -22,7 +26,10 @@
         "morgan": "^1.10.0",
         "mysql2": "^2.3.3",
         "nunjucks": "^3.2.3",
+        "pg": "^8.7.3",
         "sequelize": "^6.13.0",
-        "sequelize-cli": "^6.4.1"
+        "sequelize-cli": "^6.4.1",
+        "winston": "^3.8.1",
+        "winston-daily-rotate-file": "^4.7.1"
     }
 }

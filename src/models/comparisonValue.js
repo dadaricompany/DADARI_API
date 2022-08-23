@@ -12,13 +12,19 @@ module.exports = class ComparisonValue extends Sequelize.Model {
             {
                 sequelize,
                 timestamps: true,
-                modelName: 'ComparisonValue',
+                modelName: 'comparisonValue',
                 tableName: 'comparison_value',
+                schema: 'dadari-db',
                 paranoid: false,
                 charset: 'utf8',
                 collate: 'utf8_general_ci',
             }
         );
     }
-    static associate(db) {}
+    static associate(db) {
+        db.ComparisonValue.belongsTo(db.SubscriptionService, {
+            foreignKey: 'subscriptionServiceId',
+        });
+        db.ComparisonValue.belongsTo(db.ComparisonItem, { foreignKey: 'comparisonItemId' });
+    }
 };

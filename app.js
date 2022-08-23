@@ -1,9 +1,11 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
+const { swaggerUi, specs } = require('./config/swagger/swagger');
+
 const nunjucks = require('nunjucks');
 
-const { sequelize } = require('./src/models'); // require('./models/index.js')와 같음 - index.js는 require 시 이름 생략 가능
+const db = require('./src/models'); // require('./models/index.js')와 같음 - index.js는 require 시 이름 생략 가능
 const indexRouter = require('./src/controller');
 const usersRouter = require('./src/controller/users');
 const commentsRouter = require('./src/controller/comments');
@@ -13,7 +15,7 @@ const buildErrorResponse = require('./src/utils/exceptionUtils').buildErrorRespo
 
 const app = express(); // require해온 express 실행
 
-app.set('port', process.env.PORT || 3000); // 포트번호 3001로 세팅
+app.set('port', process.env.PORT || 4000); // 포트번호 4000로 세팅
 app.set('view engine', 'html');
 
 nunjucks.configure('views', {
@@ -22,15 +24,21 @@ nunjucks.configure('views', {
     watch: true,
 });
 
-sequelize
-    .sync({ force: false }) // 서버 실행 시 MySQL과 연동되도록 함, force: true면 서버 실행 시 마다 테이블을 재생성, 테이블을 잘못 만든 경우에 true로 설정
-    .then(() => {
-        console.log('데이터베이스 연결 성공');
-    })
-    .catch((err) => {
-        console.error(err);
-    });
+if (process.env.NODE_ENV !== 'test') {
+    // test 코드에서 db sync를 await로 맞춤
+    db.sequelize
+        .sync({ force: false }) // true : 테이블을 재생성
+        .then(() => {
+            console.log('데이터베이스 연결 성공');
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+}
 
+app.models = db;
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
 app.use(morgan('dev'));
 app.use('/', express.static(path.join(__dirname, 'public'))); // static이라서 사용자가 public 아래의 하위 폴더에 모두 접근 가능
 app.use(express.json());
