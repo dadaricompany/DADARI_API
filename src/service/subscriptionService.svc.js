@@ -2,10 +2,17 @@ const SubscriptionService = require('../models/subscriptionService');
 const Category = require('../models/category');
 
 const getSubscriptionService = async (ssDto, pageDto) => {
-    const subService = await SubscriptionService.findAll({
-        offset: pageDto.offset,
-        limit: pageDto.limit,
-    });
+    const subService = await SubscriptionService.findOne(
+        {
+            where: {
+                id: ssDto.id,
+            },
+        },
+        {
+            offset: pageDto.offset,
+            limit: pageDto.limit,
+        }
+    );
 
     return subService;
 };

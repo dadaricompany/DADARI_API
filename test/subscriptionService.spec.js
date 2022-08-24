@@ -121,8 +121,7 @@ describe('GET /subscriptionService는', () => {
     describe('구독서비스 목록 조회시', () => {
         it('구독서비스 객체를 담은 배열로 응답한다 ', (done) => {
             request(app)
-                //?page=0&limit=two
-                .get('/subscriptionService/list')
+                .get('/subscriptionService/1')
                 .end((err, res) => {
                     res.body.should.be.instanceOf(Object);
                     done();

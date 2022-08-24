@@ -12,28 +12,6 @@ const { body, header, query, validationResult } = require('express-validator');
  *   description: Main화면 조회 API
  */
 
-router.get(
-    '/',
-    [
-        query('limit').optional().isNumeric().withMessage('숫자를 입력해주세요'),
-        query('page').optional().isNumeric().withMessage('숫자를 입력해주세요'),
-    ],
-    wrapAsync(async (req, res, next) => {
-        // 값 검증
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            throw { message: '입력값을 확인해주세요.', stack: JSON.stringify(errors.array()) };
-        }
-
-        var subService = await svc.getSubscriptionService(
-            {},
-            PaginationUtil.buildOffsetLimit(req) // pagination
-        );
-
-        res.json(subService);
-    })
-);
-
 /**
  * @swagger
  * paths:
@@ -123,6 +101,30 @@ router.get(
         //logger.debug(error.print());
         logger.debug(JSON.stringify(result));
         res.json(result);
+    })
+);
+
+router.get(
+    '/:id',
+    [
+        query('limit').optional().isNumeric().withMessage('숫자를 입력해주세요'),
+        query('page').optional().isNumeric().withMessage('숫자를 입력해주세요'),
+    ],
+    wrapAsync(async (req, res, next) => {
+        // 값 검증
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            throw { message: '입력값을 확인해주세요.', stack: JSON.stringify(errors.array()) };
+        }
+
+        var subService = await svc.getSubscriptionService(
+            {
+                id: req.params.id,
+            },
+            PaginationUtil.buildOffsetLimit(req) // pagination
+        );
+
+        res.json(subService);
     })
 );
 
