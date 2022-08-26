@@ -1,18 +1,28 @@
-const SubscriptionService = require('../models/subscriptionService');
-const Category = require('../models/category');
+const { ComparisonItem, Category, ComparisonValue, SubscriptionService } = require('../models');
 
-const getSubscriptionService = async (ssDto, pageDto) => {
-    const subService = await SubscriptionService.findOne(
-        {
-            where: {
-                id: ssDto.id,
-            },
+const getSubscriptionService = async (ssDto) => {
+    const subService = await SubscriptionService.findOne({
+        where: {
+            id: ssDto.id,
         },
-        {
-            offset: pageDto.offset,
-            limit: pageDto.limit,
-        }
-    );
+    });
+
+    const values = await ComparisonValue.findAll({
+        include: [
+            // ['id', 'userId] === id AS userId
+            {
+                model: ComparisonItem,
+                attributes: ['name', 'unit', 'type', 'sort'],
+            },
+        ],
+        raw: true,
+        where: {
+            subscriptionServiceId: ssDto.id,
+        },
+        //order: [['comparisonItem.sort', 'ASC']],
+    });
+
+    subService.dataValues.compareValues = values;
 
     return subService;
 };

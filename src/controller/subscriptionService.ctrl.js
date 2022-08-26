@@ -160,12 +160,9 @@ router.get(
             throw { message: 'id를 확인해주세요.', stack: null };
         }
 
-        var subService = await svc.getSubscriptionService(
-            {
-                id: subscriptionServiceId,
-            },
-            PaginationUtil.buildOffsetLimit(req) // pagination
-        );
+        var subService = await svc.getSubscriptionService({
+            id: subscriptionServiceId,
+        });
 
         logger.debug(JSON.stringify(subService));
         res.json(subService);

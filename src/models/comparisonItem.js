@@ -16,6 +16,10 @@ module.exports = class ComparisonItem extends Sequelize.Model {
                     type: Sequelize.STRING(20),
                     allowNull: false,
                 },
+                sort: {
+                    type: Sequelize.INTEGER,
+                    allowNull: false,
+                },
             },
             {
                 sequelize,

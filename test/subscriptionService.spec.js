@@ -63,6 +63,7 @@ describe('GET /subscriptionService는', () => {
             name: '가격',
             unit: '원',
             type: 'NUMBER',
+            sort: 1,
             categoryId: 1,
         },
         {
@@ -70,6 +71,7 @@ describe('GET /subscriptionService는', () => {
             name: '제공서비스',
             unit: '',
             type: 'TEXT',
+            sort: 2,
             categoryId: 1,
         },
     ];
@@ -91,7 +93,7 @@ describe('GET /subscriptionService는', () => {
 
     before(async () => {
         await app.models.sequelize
-            .sync({ force: false })
+            .sync({ force: true })
             .then(() => {
                 app.models.Category.bulkCreate(category);
                 app.models.SubscriptionService.bulkCreate(subscriptionServices);
@@ -118,8 +120,8 @@ describe('GET /subscriptionService는', () => {
         });
     });
 
-    describe('구독서비스 목록 조회시', () => {
-        it('구독서비스 객체를 담은 배열로 응답한다 ', (done) => {
+    describe('구독서비스 상세 조회시', () => {
+        it('구독서비스 객체를 담은 객체로 응답한다 ', (done) => {
             request(app)
                 .get('/subscriptionService/1')
                 .end((err, res) => {
