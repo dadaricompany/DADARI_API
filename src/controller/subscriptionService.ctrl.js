@@ -3,13 +3,15 @@ const svc = require('../service/subscriptionService.svc');
 const PaginationUtil = require('../utils/paginationUtil');
 const wrapAsync = require('../utils/exceptionUtils').wrapAsync;
 const logger = require('../../config/winston');
+const CONSTS = require('../common/consts');
+
 const router = express.Router();
 const { body, header, query, validationResult } = require('express-validator');
 /**
  * @swagger
  * tags:
- *   name: Main
- *   description: Main화면 조회 API
+ *   name: 구독서비스
+ *   description: 구독서비스 API
  */
 
 /**
@@ -85,7 +87,7 @@ router.get(
         // 값 검증
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            throw { message: '입력값을 확인해주세요.', stack: JSON.stringify(errors.array()) };
+            throw { message: CONSTS.MESSAGE.INVALID_VALUE, stack: JSON.stringify(errors.array()) };
         }
 
         var subService = await svc.getMainSubscriptionService(
@@ -104,26 +106,68 @@ router.get(
     })
 );
 
+/**
+ * @swagger
+ * paths:
+ *  /subscriptionService/{id}:
+ *   get:
+ *    tags:
+ *    - Detail API
+ *    description: 구독서비스 조회
+ *    parameters:
+ *    - in: path
+ *      name: id
+ *      required: true
+ *      schema:
+ *       type: integer
+ *
+ *    responses:
+ *     200:
+ *      description: 구독서비스 조회 성공
+ *      schema:
+ *       properties:
+ *        id:
+ *         type: integer
+ *        nameEng:
+ *         type: string
+ *        nameKr:
+ *         type: string
+ *        logoPath:
+ *         type: string
+ *        description:
+ *         type: string
+ *     400:
+ *      description: 구독서비스 조회 실패
+ *      schema:
+ *       properties:
+ *        message:
+ *         type: string
+ *        stack:
+ *         type: string
+ *
+ */
 router.get(
     '/:id',
-    [
-        query('limit').optional().isNumeric().withMessage('숫자를 입력해주세요'),
-        query('page').optional().isNumeric().withMessage('숫자를 입력해주세요'),
-    ],
     wrapAsync(async (req, res, next) => {
         // 값 검증
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            throw { message: '입력값을 확인해주세요.', stack: JSON.stringify(errors.array()) };
+            throw { message: CONSTS.MESSAGE.INVALID_VALUE, stack: JSON.stringify(errors.array()) };
+        }
+
+        var subscriptionServiceId = req.params.id;
+        if (!subscriptionServiceId) {
+            throw { message: 'id를 확인해주세요.', stack: null };
         }
 
         var subService = await svc.getSubscriptionService(
             {
-                id: req.params.id,
+                id: subscriptionServiceId,
             },
             PaginationUtil.buildOffsetLimit(req) // pagination
         );
 
+        logger.debug(JSON.stringify(subService));
         res.json(subService);
     })
 );
