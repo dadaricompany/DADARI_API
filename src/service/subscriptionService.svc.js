@@ -1,28 +1,48 @@
-const { ComparisonItem, Category, ComparisonValue, SubscriptionService } = require('../models');
+const {
+    ComparisonItem,
+    Category,
+    ComparisonValue,
+    SubscriptionService,
+    Membership,
+} = require('../models');
 
 const getSubscriptionService = async (ssDto) => {
     const subService = await SubscriptionService.findOne({
+        include: [
+            {
+                model: Category,
+                attributes: ['template'],
+            },
+        ],
         where: {
             id: ssDto.id,
         },
     });
 
-    const values = await ComparisonValue.findAll({
+    const memberships = await Membership.findAll({
         include: [
-            // ['id', 'userId] === id AS userId
             {
-                model: ComparisonItem,
-                attributes: ['name', 'unit', 'type', 'sort'],
+                model: ComparisonValue,
+
+                include: [
+                    {
+                        model: ComparisonItem,
+                        attributes: ['name', 'unit', 'type', 'sort'],
+                    },
+                ],
+
+                raw: true,
+                attributes: ['value'],
             },
         ],
-        raw: true,
+        //raw: true,
         where: {
             subscriptionServiceId: ssDto.id,
         },
         //order: [['comparisonItem.sort', 'ASC']],
     });
 
-    subService.dataValues.compareValues = values;
+    subService.dataValues.memberships = memberships;
 
     return subService;
 };

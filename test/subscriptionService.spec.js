@@ -38,6 +38,26 @@ describe('GET /subscriptionService는', () => {
         },
     ];
 
+    const memberships = [
+        {
+            id: 1,
+            name: '베이식',
+            grade: 1,
+            subscriptionServiceId: 1,
+        },
+        {
+            id: 2,
+            name: '스탠다드',
+            grade: 2,
+            subscriptionServiceId: 1,
+        },
+        {
+            id: 3,
+            name: '프리미엄',
+            grade: 3,
+            subscriptionServiceId: 1,
+        },
+    ];
     const category = [
         {
             id: 1,
@@ -46,6 +66,7 @@ describe('GET /subscriptionService는', () => {
             description: '영화/드라마',
             logoPath: '/logo/category/movie.jpg',
             sort: 1,
+            template: '1 2 2 1 1',
         },
         {
             id: 2,
@@ -54,6 +75,7 @@ describe('GET /subscriptionService는', () => {
             description: '음악',
             logoPath: '/logo/category/music.jpg',
             sort: 2,
+            template: '1 1 1 1 1',
         },
     ];
 
@@ -81,13 +103,13 @@ describe('GET /subscriptionService는', () => {
             id: 1,
             value: '9500',
             comparisonItemId: 1,
-            subscriptionServiceId: 1,
+            membershipId: 1,
         },
         {
             id: 2,
             value: '영화, 드라마',
             comparisonItemId: 2,
-            subscriptionServiceId: 1,
+            membershipId: 1,
         },
     ];
 
@@ -97,6 +119,7 @@ describe('GET /subscriptionService는', () => {
             .then(() => {
                 app.models.Category.bulkCreate(category);
                 app.models.SubscriptionService.bulkCreate(subscriptionServices);
+                app.models.Membership.bulkCreate(memberships);
                 app.models.ComparisonItem.bulkCreate(comparisonItems);
                 app.models.ComparisonValue.bulkCreate(comparisonValues);
             })

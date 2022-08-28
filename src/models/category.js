@@ -24,6 +24,10 @@ module.exports = class Category extends Sequelize.Model {
                     type: Sequelize.INTEGER,
                     allowNull: false,
                 },
+                template: {
+                    type: Sequelize.STRING(20),
+                    allowNull: false,
+                },
             },
             {
                 sequelize,

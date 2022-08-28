@@ -7,6 +7,7 @@ const Category = require('./category');
 const SubscriptionService = require('./subscriptionService');
 const ComparisonItem = require('./comparisonItem');
 const ComparisonValue = require('./comparisonValue');
+const Membership = require('./membership');
 
 const env = process.env.NODE_ENV || 'development';
 const config = require('../../config/config')[env]; // config/config.json에서 데이터베이스 설정을 불러옴
@@ -26,6 +27,7 @@ db.Comment = Comment;
 db.User = User;
 db.Category = Category;
 db.SubscriptionService = SubscriptionService;
+db.Membership = Membership;
 db.ComparisonItem = ComparisonItem;
 db.ComparisonValue = ComparisonValue;
 
@@ -34,6 +36,7 @@ Comment.init(sequelize);
 User.init(sequelize);
 Category.init(sequelize);
 SubscriptionService.init(sequelize);
+Membership.init(sequelize);
 ComparisonItem.init(sequelize);
 ComparisonValue.init(sequelize);
 
@@ -42,6 +45,7 @@ Comment.associate(db);
 User.associate(db);
 Category.associate(db);
 SubscriptionService.associate(db);
+Membership.associate(db);
 ComparisonItem.associate(db);
 ComparisonValue.associate(db);
 

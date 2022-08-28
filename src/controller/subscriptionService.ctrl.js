@@ -224,7 +224,7 @@ router.get(
  *          properties:
  *           id:
  *            type: integer
- *           nameEng:
+ *           value:
  *            type: string
  *           nameKr:
  *            type: string
