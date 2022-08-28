@@ -109,6 +109,87 @@ router.get(
 /**
  * @swagger
  * paths:
+ *  /subscriptionService/list:
+ *   get:
+ *    tags:
+ *    - List API
+ *    description: 카테고리별 구독서비스 조회
+ *    parameters:
+ *    - in: query
+ *      name: categoryId
+ *      required: true
+ *      schema:
+ *       type: integer
+ *    - in: query
+ *      name: page
+ *      required: false
+ *      schema:
+ *       type: integer
+ *    - in: query
+ *      name: limit
+ *      required: false
+ *      schema:
+ *       type: integer
+ *
+ *    responses:
+ *     200:
+ *      description: 구독서비스 리스트 API 조회 성공
+ *      schema:
+ *        type: array
+ *        items:
+ *          type: object
+ *          properties:
+ *            id:
+ *             type: integer
+ *            nameEng:
+ *             type: string
+ *            nameKr:
+ *             type: string
+ *            logoPath:
+ *             type: string
+ *            description:
+ *             type: string
+ *     400:
+ *      description: 구독서비스 리스트 조회 실패
+ *      schema:
+ *       properties:
+ *        message:
+ *         type: string
+ *        stack:
+ *         type: string
+ *
+ */
+router.get(
+    '/list',
+    [
+        query('categoryId').notEmpty().withMessage('categoryId는 필수값입니다.'),
+        query('limit').optional().isNumeric().withMessage('숫자를 입력해주세요'),
+        query('page').optional().isNumeric().withMessage('숫자를 입력해주세요'),
+    ],
+    wrapAsync(async (req, res, next) => {
+        // 값 검증
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            throw { message: '입력값을 확인해주세요.', stack: JSON.stringify(errors.array()) };
+        }
+
+        var subService = await svc.getSubscriptionServiceList(
+            {
+                categoryId: req.query.categoryId,
+            },
+            PaginationUtil.buildOffsetLimit(req) // pagination
+        );
+
+        var result = subService;
+
+        logger.debug(JSON.stringify(result));
+        res.json(result);
+    })
+);
+
+/**
+ * @swagger
+ * paths:
  *  /subscriptionService/{id}:
  *   get:
  *    tags:
@@ -136,6 +217,21 @@ router.get(
  *         type: string
  *        description:
  *         type: string
+ *        compareValues:
+ *         type: array
+ *         items:
+ *          type: object
+ *          properties:
+ *           id:
+ *            type: integer
+ *           nameEng:
+ *            type: string
+ *           nameKr:
+ *            type: string
+ *           logoPath:
+ *            type: string
+ *           description:
+ *            type: string
  *     400:
  *      description: 구독서비스 조회 실패
  *      schema:

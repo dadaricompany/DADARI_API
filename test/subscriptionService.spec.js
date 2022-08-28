@@ -120,8 +120,19 @@ describe('GET /subscriptionService는', () => {
         });
     });
 
+    describe('구독서비스 목록 조회시', () => {
+        it('구독서비스 객체를 담은 배열로 응답한다 ', (done) => {
+            request(app)
+                .get('/subscriptionService/list?categoryId=1')
+                .end((err, res) => {
+                    res.body.should.be.instanceOf(Array);
+                    done();
+                });
+        });
+    });
+
     describe('구독서비스 상세 조회시', () => {
-        it('구독서비스 객체를 담은 객체로 응답한다 ', (done) => {
+        it('구독서비스 정보를 담은 객체응답한다 ', (done) => {
             request(app)
                 .get('/subscriptionService/1')
                 .end((err, res) => {

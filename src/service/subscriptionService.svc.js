@@ -27,6 +27,22 @@ const getSubscriptionService = async (ssDto) => {
     return subService;
 };
 
+const getSubscriptionServiceList = async (ssDto, pageDto) => {
+    const subService = await SubscriptionService.findAll(
+        {
+            where: {
+                categoryId: ssDto.categoryId,
+            },
+        },
+        {
+            offset: pageDto.offset,
+            limit: pageDto.limit,
+        }
+    );
+
+    return subService;
+};
+
 const getMainSubscriptionService = async (ssDto, pageDto) => {
     const main = await Category.findAll({
         include: [
@@ -42,4 +58,5 @@ const getMainSubscriptionService = async (ssDto, pageDto) => {
 module.exports = {
     getSubscriptionService,
     getMainSubscriptionService,
+    getSubscriptionServiceList,
 };
