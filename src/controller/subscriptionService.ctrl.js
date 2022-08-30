@@ -217,21 +217,53 @@ router.get(
  *         type: string
  *        description:
  *         type: string
- *        compareValues:
+ *        category:
+ *          type: object
+ *          properties:
+ *           id:
+ *            type: integer
+ *           nameKr:
+ *            type: string
+ *           namEng:
+ *            type: string
+ *           description:
+ *            type: string
+ *           logoPath:
+ *            type: string
+ *           template:
+ *            type: string
+ *        memberships:
  *         type: array
  *         items:
  *          type: object
  *          properties:
  *           id:
  *            type: integer
- *           value:
+ *           name:
  *            type: string
- *           nameKr:
+ *           grade:
  *            type: string
- *           logoPath:
- *            type: string
- *           description:
- *            type: string
+ *           comparisonValues:
+ *            type: array
+ *            items:
+ *             type: array
+ *             items:
+ *              type: object
+ *              properties:
+ *               value:
+ *                type: string
+ *               category:
+ *                 type: object
+ *                 properties:
+ *                  name:
+ *                   type: string
+ *                  unit:
+ *                   type: string
+ *                  type:
+ *                   type: string
+ *                  sort:
+ *                   type: string
+ *
  *     400:
  *      description: 구독서비스 조회 실패
  *      schema:
