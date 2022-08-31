@@ -7,6 +7,8 @@ const {
 } = require('../models');
 
 const getSubscriptionService = async (ssDto) => {
+    var memberships = {};
+
     const subService = await SubscriptionService.findOne({
         include: [
             {
@@ -19,7 +21,7 @@ const getSubscriptionService = async (ssDto) => {
         },
     });
 
-    const memberships = await Membership.findAll({
+    await Membership.findAll({
         include: [
             {
                 model: ComparisonValue,
@@ -39,8 +41,33 @@ const getSubscriptionService = async (ssDto) => {
         where: {
             subscriptionServiceId: ssDto.id,
         },
-        //order: [['comparisonItem.sort', 'ASC']],
+        order: [['grade', 'ASC']],
+        order: [[ComparisonValue, ComparisonItem, 'sort', 'ASC']],
+    }).then((result) => {
+        memberships = result.map((el) => el.get({ plain: true }));
     });
+
+    var template = subService.category.template.split(' ');
+
+    for (var mindex in memberships) {
+        var index = 0;
+        var comparisonValues = [];
+        tmp: for (var cnt of template) {
+            var comparisonValueArr = [];
+            for (var i = 0; i < Number(cnt); i++) {
+                if (!memberships[mindex].comparisonValues[index]) {
+                    comparisonValues.push(comparisonValueArr);
+                    break tmp;
+                }
+
+                comparisonValueArr.push(memberships[mindex].comparisonValues[index]);
+                index++;
+            }
+            comparisonValues.push(comparisonValueArr);
+        }
+
+        memberships[mindex].comparisonValues = comparisonValues;
+    }
 
     subService.dataValues.memberships = memberships;
 

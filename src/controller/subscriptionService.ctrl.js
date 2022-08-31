@@ -252,7 +252,7 @@ router.get(
  *              properties:
  *               value:
  *                type: string
- *               category:
+ *               comparisonItem:
  *                 type: object
  *                 properties:
  *                  name:
