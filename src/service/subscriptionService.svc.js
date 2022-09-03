@@ -6,6 +6,34 @@ const {
     Membership,
 } = require('../models');
 
+const getMainSubscriptionService = async (ssDto, pageDto) => {
+    const main = await Category.findAll({
+        include: [
+            {
+                model: SubscriptionService,
+            },
+        ],
+    });
+
+    return main;
+};
+
+const getSubscriptionServiceList = async (ssDto, pageDto) => {
+    const subService = await SubscriptionService.findAll(
+        {
+            where: {
+                categoryId: ssDto.categoryId,
+            },
+        },
+        {
+            offset: pageDto.offset,
+            limit: pageDto.limit,
+        }
+    );
+
+    return subService;
+};
+
 const getSubscriptionService = async (ssDto) => {
     var memberships = {};
 
@@ -74,23 +102,7 @@ const getSubscriptionService = async (ssDto) => {
     return subService;
 };
 
-const getSubscriptionServiceList = async (ssDto, pageDto) => {
-    const subService = await SubscriptionService.findAll(
-        {
-            where: {
-                categoryId: ssDto.categoryId,
-            },
-        },
-        {
-            offset: pageDto.offset,
-            limit: pageDto.limit,
-        }
-    );
-
-    return subService;
-};
-
-const getMainSubscriptionService = async (ssDto, pageDto) => {
+const getCompareSubscriptionService = async (ssDto, pageDto) => {
     const main = await Category.findAll({
         include: [
             {
@@ -106,4 +118,5 @@ module.exports = {
     getSubscriptionService,
     getMainSubscriptionService,
     getSubscriptionServiceList,
+    getCompareSubscriptionService,
 };
