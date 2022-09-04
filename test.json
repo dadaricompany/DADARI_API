@@ -1,95 +1,64 @@
 {
-    "id": 1,
-    "nameEng": "netflex",
-    "nameKr": "넷플렉스",
-    "logoPath": "/logo/subscriptionService/netflex.jpg",
-    "description": "1등서비스",
-    "updateBy": "admin",
-    "createBy": "admin",
-    "createdAt": "2022-08-30T17:39:30.675Z",
-    "updatedAt": "2022-08-30T17:39:30.675Z",
-    "categoryId": 1,
-    "category": { "template": "1 2 2 1 1" },
-    "memberships": [
+    "categories": [
         {
             "id": 1,
-            "name": "베이식",
-            "grade": "1",
-            "createdAt": "2022-08-30T17:39:30.675Z",
-            "updatedAt": "2022-08-30T17:39:30.675Z",
-            "subscriptionServiceId": 1,
-            "comparisonValues": [
-                [
-                    {
-                        "value": "영화, 드라마",
-                        "comparisonItem": {
-                            "name": "제공서비스",
-                            "unit": "",
-                            "type": "TEXT",
-                            "sort": 2
-                        }
-                    }
-                ],
-                [
-                    {
-                        "value": "9500",
-                        "comparisonItem": {
-                            "name": "가격",
-                            "unit": "원",
-                            "type": "NUMBER",
-                            "sort": 3
-                        }
-                    },
-                    {
-                        "value": "월",
-                        "comparisonItem": {
-                            "name": "구독기간",
-                            "unit": "",
-                            "type": "TEXT",
-                            "sort": 3
-                        }
-                    }
-                ],
-                [
-                    {
-                        "value": "1개월",
-                        "comparisonItem": {
-                            "name": "무료기간",
-                            "unit": "",
-                            "type": "TEXT",
-                            "sort": 4
-                        }
-                    },
-                    {
-                        "value": "KT통신사 제휴",
-                        "comparisonItem": {
-                            "name": "제휴해택",
-                            "unit": "",
-                            "type": "TEXT",
-                            "sort": 5
-                        }
-                    }
-                ],
-                []
-            ]
+            "nameKr": "영화/드라마",
+            "nameEng": "movie",
+            "description": "영화/드라마",
+            "logoPath": "/logo/category/movie.jpg",
+            "sort": 1,
+            "template": "1 2 2 1 1",
+            "createdAt": "2022-09-04T09:15:43.876Z",
+            "updatedAt": "2022-09-04T09:15:43.876Z"
         },
         {
             "id": 2,
-            "name": "스탠다드",
-            "grade": "2",
-            "createdAt": "2022-08-30T17:39:30.675Z",
-            "updatedAt": "2022-08-30T17:39:30.675Z",
-            "subscriptionServiceId": 1,
-            "comparisonValues": [[]]
+            "nameKr": "음악",
+            "nameEng": "music",
+            "description": "음악",
+            "logoPath": "/logo/category/music.jpg",
+            "sort": 2,
+            "template": "1 1 1 1 1",
+            "createdAt": "2022-09-04T09:15:43.876Z",
+            "updatedAt": "2022-09-04T09:15:43.876Z"
+        }
+    ],
+    "subscriptionServices": [
+        {
+            "id": 1,
+            "nameEng": "netflex",
+            "nameKr": "넷플렉스",
+            "logoPath": "/images/logo/netflex.png",
+            "description": "1등서비스",
+            "updateBy": "admin",
+            "createBy": "admin",
+            "createdAt": "2022-09-04T09:15:43.877Z",
+            "updatedAt": "2022-09-04T09:15:43.877Z",
+            "categoryId": 1
+        },
+        {
+            "id": 2,
+            "nameEng": "youtube",
+            "nameKr": "유튜브",
+            "logoPath": "/images/logo/youtube.png",
+            "description": "유튜브",
+            "updateBy": "admin",
+            "createBy": "admin",
+            "createdAt": "2022-09-04T09:15:43.877Z",
+            "updatedAt": "2022-09-04T09:15:43.877Z",
+            "categoryId": 1
         },
         {
             "id": 3,
-            "name": "프리미엄",
-            "grade": "3",
-            "createdAt": "2022-08-30T17:39:30.675Z",
-            "updatedAt": "2022-08-30T17:39:30.675Z",
-            "subscriptionServiceId": 1,
-            "comparisonValues": [[]]
+            "nameEng": "disney plus",
+            "nameKr": "디즈니플러스",
+            "logoPath": "/logo/subscriptionService/disney_plus.jpg",
+            "description": "마블",
+            "updateBy": "admin",
+            "createBy": "admin",
+            "createdAt": "2022-09-04T09:15:43.877Z",
+            "updatedAt": "2022-09-04T09:15:43.877Z",
+            "categoryId": 1
         }
     ]
 }

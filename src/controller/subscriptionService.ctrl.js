@@ -173,14 +173,12 @@ router.get(
             throw { message: '입력값을 확인해주세요.', stack: JSON.stringify(errors.array()) };
         }
 
-        var subService = await svc.getSubscriptionServiceList(
+        var result = await svc.getSubscriptionServiceList(
             {
                 categoryId: req.query.categoryId,
             },
             PaginationUtil.buildOffsetLimit(req) // pagination
         );
-
-        var result = subService;
 
         logger.debug(JSON.stringify(result));
         res.json(result);

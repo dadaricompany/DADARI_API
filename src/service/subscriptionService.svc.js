@@ -19,7 +19,7 @@ const getMainSubscriptionService = async (ssDto, pageDto) => {
 };
 
 const getSubscriptionServiceList = async (ssDto, pageDto) => {
-    const subService = await SubscriptionService.findAll(
+    const subscriptionServices = await SubscriptionService.findAll(
         {
             where: {
                 categoryId: ssDto.categoryId,
@@ -31,7 +31,14 @@ const getSubscriptionServiceList = async (ssDto, pageDto) => {
         }
     );
 
-    return subService;
+    const categories = await Category.findAll();
+
+    var result = {
+        categories,
+        subscriptionServices,
+    };
+
+    return result;
 };
 
 const getSubscriptionService = async (ssDto) => {
@@ -69,8 +76,10 @@ const getSubscriptionService = async (ssDto) => {
         where: {
             subscriptionServiceId: ssDto.id,
         },
-        order: [['grade', 'ASC']],
-        order: [[ComparisonValue, ComparisonItem, 'sort', 'ASC']],
+        order: [
+            ['grade', 'ASC'],
+            [ComparisonValue, ComparisonItem, 'sort', 'ASC'],
+        ],
     }).then((result) => {
         memberships = result.map((el) => el.get({ plain: true }));
     });
@@ -80,12 +89,12 @@ const getSubscriptionService = async (ssDto) => {
     for (var mindex in memberships) {
         var index = 0;
         var comparisonValues = [];
-        tmp: for (var cnt of template) {
+        tmplt: for (var cnt of template) {
             var comparisonValueArr = [];
             for (var i = 0; i < Number(cnt); i++) {
                 if (!memberships[mindex].comparisonValues[index]) {
                     comparisonValues.push(comparisonValueArr);
-                    break tmp;
+                    break tmplt;
                 }
 
                 comparisonValueArr.push(memberships[mindex].comparisonValues[index]);

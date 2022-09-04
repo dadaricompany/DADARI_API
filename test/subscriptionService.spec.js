@@ -57,6 +57,12 @@ describe('GET /subscriptionService는', () => {
             grade: 3,
             subscriptionServiceId: 1,
         },
+        {
+            id: 4,
+            name: '기본',
+            grade: 1,
+            subscriptionServiceId: 2,
+        },
     ];
     const category = [
         {
@@ -64,7 +70,7 @@ describe('GET /subscriptionService는', () => {
             nameKr: '영화/드라마',
             nameEng: 'movie',
             description: '영화/드라마',
-            logoPath: '/logo/category/movie.jpg',
+            logoPath: '/images/category/list-icon-category-movie.png',
             sort: 1,
             template: '1 2 2 1 1',
         },
@@ -73,7 +79,7 @@ describe('GET /subscriptionService는', () => {
             nameKr: '음악',
             nameEng: 'music',
             description: '음악',
-            logoPath: '/logo/category/music.jpg',
+            logoPath: '/images/category/list-icon-category-music.png',
             sort: 2,
             template: '1 1 1 1 1',
         },
@@ -120,6 +126,22 @@ describe('GET /subscriptionService는', () => {
             sort: 5,
             categoryId: 1,
         },
+        {
+            id: 6,
+            name: '부가기능',
+            unit: '',
+            type: 'TEXT',
+            sort: 6,
+            categoryId: 1,
+        },
+        {
+            id: 7,
+            name: '컨텐츠 수',
+            unit: '',
+            type: 'TEXT',
+            sort: 7,
+            categoryId: 1,
+        },
     ];
 
     const comparisonValues = [
@@ -152,6 +174,102 @@ describe('GET /subscriptionService는', () => {
             value: 'KT통신사 제휴',
             comparisonItemId: 5,
             membershipId: 1,
+        },
+        {
+            id: 6,
+            value: '넷플릭스 오리지널 제공',
+            comparisonItemId: 6,
+            membershipId: 1,
+        },
+        {
+            id: 7,
+            value: '0',
+            comparisonItemId: 7,
+            membershipId: 1,
+        },
+        {
+            id: 8,
+            value: '12000',
+            comparisonItemId: 1,
+            membershipId: 2,
+        },
+        {
+            id: 9,
+            value: '영화, 드라마',
+            comparisonItemId: 2,
+            membershipId: 2,
+        },
+        {
+            id: 10,
+            value: '월',
+            comparisonItemId: 3,
+            membershipId: 2,
+        },
+        {
+            id: 11,
+            value: '1개월',
+            comparisonItemId: 4,
+            membershipId: 2,
+        },
+        {
+            id: 12,
+            value: 'KT통신사 제휴',
+            comparisonItemId: 5,
+            membershipId: 2,
+        },
+        {
+            id: 13,
+            value: '넷플릭스 오리지널 제공',
+            comparisonItemId: 6,
+            membershipId: 2,
+        },
+        {
+            id: 14,
+            value: '0',
+            comparisonItemId: 7,
+            membershipId: 2,
+        },
+        {
+            id: 22,
+            value: '10450',
+            comparisonItemId: 1,
+            membershipId: 4,
+        },
+        {
+            id: 23,
+            value: '영상, 영상',
+            comparisonItemId: 2,
+            membershipId: 4,
+        },
+        {
+            id: 24,
+            value: '월',
+            comparisonItemId: 3,
+            membershipId: 4,
+        },
+        {
+            id: 25,
+            value: '1개월',
+            comparisonItemId: 4,
+            membershipId: 4,
+        },
+        {
+            id: 26,
+            value: 'SK, LG U+, KT 통신사',
+            comparisonItemId: 5,
+            membershipId: 4,
+        },
+        {
+            id: 27,
+            value: '광고제거, 영상 다운로드, 백그라운드 재생',
+            comparisonItemId: 6,
+            membershipId: 4,
+        },
+        {
+            id: 28,
+            value: '0',
+            comparisonItemId: 7,
+            membershipId: 4,
         },
     ];
 
@@ -186,11 +304,11 @@ describe('GET /subscriptionService는', () => {
     });
 
     describe('구독서비스 목록 조회시', () => {
-        it('구독서비스 객체를 담은 배열로 응답한다 ', (done) => {
+        it('구독서비스와 카테고리를 담은 객체로 응답한다 ', (done) => {
             request(app)
                 .get('/subscriptionService/list?categoryId=1')
                 .end((err, res) => {
-                    res.body.should.be.instanceOf(Array);
+                    res.body.should.be.instanceOf(Object);
                     done();
                 });
         });
@@ -199,7 +317,7 @@ describe('GET /subscriptionService는', () => {
     describe('구독서비스 상세 조회시', () => {
         it('구독서비스 정보를 담은 객체응답한다 ', (done) => {
             request(app)
-                .get('/subscriptionService/1')
+                .get('/subscriptionService/2')
                 .end((err, res) => {
                     res.body.should.be.instanceOf(Object);
                     done();
