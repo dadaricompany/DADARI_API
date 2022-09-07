@@ -17,7 +17,12 @@ module.exports = class SubscriptionService extends Sequelize.Model {
                     allowNull: false,
                     unique: false,
                 },
-                logoPath: {
+                bigLogoPath: {
+                    type: Sequelize.STRING(100),
+                    allowNull: false,
+                    unique: false,
+                },
+                smallLogoPath: {
                     type: Sequelize.STRING(100),
                     allowNull: false,
                     unique: false,

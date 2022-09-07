@@ -16,7 +16,11 @@ module.exports = class Category extends Sequelize.Model {
                     type: Sequelize.STRING(500),
                     allowNull: true,
                 },
-                logoPath: {
+                bigLogoPath: {
+                    type: Sequelize.STRING(100),
+                    allowNull: false,
+                },
+                smallLogoPath: {
                     type: Sequelize.STRING(100),
                     allowNull: false,
                 },
