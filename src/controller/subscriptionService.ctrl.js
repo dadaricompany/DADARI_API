@@ -34,48 +34,6 @@ const { body, header, query, validationResult } = require('express-validator');
  *      schema:
  *       type: integer
  *
- *    responses:
- *     200:
- *      description: 메인화면 API 조회 성공
- *      schema:
- *       properties:
- *         main:
- *          type: array
- *          items:
- *           type: object
- *           properties:
- *            id:
- *             type: integer
- *            name:
- *             type: string
- *            description:
- *             type: string
- *            logoPath:
- *             type: string
- *            subscriptionServices:
- *             type: array
- *             items:
- *              type: object
- *              properties:
- *               id:
- *                type: integer
- *               nameEng:
- *                type: string
- *               nameKr:
- *                type: string
- *               logoPath:
- *                type: string
- *               description:
- *                type: string
- *     400:
- *      description: 메인화면 API 조회 실패
- *      schema:
- *       properties:
- *        message:
- *         type: string
- *        stack:
- *         type: string
- *
  */
 router.get(
     '/main',
@@ -130,34 +88,6 @@ router.get(
  *      required: false
  *      schema:
  *       type: integer
- *
- *    responses:
- *     200:
- *      description: 구독서비스 리스트 API 조회 성공
- *      schema:
- *        type: array
- *        items:
- *          type: object
- *          properties:
- *            id:
- *             type: integer
- *            nameEng:
- *             type: string
- *            nameKr:
- *             type: string
- *            logoPath:
- *             type: string
- *            description:
- *             type: string
- *     400:
- *      description: 구독서비스 리스트 조회 실패
- *      schema:
- *       properties:
- *        message:
- *         type: string
- *        stack:
- *         type: string
- *
  */
 router.get(
     '/list',
@@ -199,77 +129,6 @@ router.get(
  *      required: true
  *      schema:
  *       type: integer
- *
- *    responses:
- *     200:
- *      description: 구독서비스 조회 성공
- *      schema:
- *       properties:
- *        id:
- *         type: integer
- *        nameEng:
- *         type: string
- *        nameKr:
- *         type: string
- *        logoPath:
- *         type: string
- *        description:
- *         type: string
- *        category:
- *          type: object
- *          properties:
- *           id:
- *            type: integer
- *           nameKr:
- *            type: string
- *           namEng:
- *            type: string
- *           description:
- *            type: string
- *           logoPath:
- *            type: string
- *           template:
- *            type: string
- *        memberships:
- *         type: array
- *         items:
- *          type: object
- *          properties:
- *           id:
- *            type: integer
- *           name:
- *            type: string
- *           grade:
- *            type: string
- *           comparisonValues:
- *            type: array
- *            items:
- *             type: array
- *             items:
- *              type: object
- *              properties:
- *               value:
- *                type: string
- *               comparisonItem:
- *                 type: object
- *                 properties:
- *                  name:
- *                   type: string
- *                  unit:
- *                   type: string
- *                  type:
- *                   type: string
- *                  sort:
- *                   type: string
- *
- *     400:
- *      description: 구독서비스 조회 실패
- *      schema:
- *       properties:
- *        message:
- *         type: string
- *        stack:
- *         type: string
  *
  */
 router.get(
