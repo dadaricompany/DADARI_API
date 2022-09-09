@@ -60,5 +60,10 @@ module.exports = class SubscriptionService extends Sequelize.Model {
     static associate(db) {
         // 다른 모델과의 관계 <-> static init: 테이블에 대한 설정
         db.SubscriptionService.belongsTo(db.Category, { foreignKey: 'categoryId' });
+
+        db.SubscriptionService.belongsToMany(db.Hashtag, {
+            through: 'subscriptionServiceHashtag',
+            foreignKey: 'subscriptionServiceId',
+        });
     }
 };

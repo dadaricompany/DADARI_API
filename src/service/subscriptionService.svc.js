@@ -4,6 +4,7 @@ const {
     ComparisonValue,
     SubscriptionService,
     Membership,
+    Hashtag,
 } = require('../models');
 
 const getMainSubscriptionService = async (ssDto, pageDto) => {
@@ -21,6 +22,12 @@ const getMainSubscriptionService = async (ssDto, pageDto) => {
 const getSubscriptionServiceList = async (ssDto, pageDto) => {
     const subscriptionServices = await SubscriptionService.findAll(
         {
+            include: [
+                {
+                    model: Hashtag,
+                    attributes: ['name'],
+                },
+            ],
             where: {
                 categoryId: ssDto.categoryId,
             },
@@ -30,13 +37,21 @@ const getSubscriptionServiceList = async (ssDto, pageDto) => {
             limit: pageDto.limit,
         }
     );
-
-    const categories = await Category.findAll();
-
     var result = {
-        categories,
         subscriptionServices,
     };
+
+    if (pageDto.offset == 0) {
+        const hashtags = await Hashtag.findAll({
+            where: {
+                categoryId: ssDto.categoryId,
+            },
+        });
+        const categories = await Category.findAll();
+
+        result.hashtags = hashtags;
+        result.categories = categories;
+    }
 
     return result;
 };
