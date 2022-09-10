@@ -41,7 +41,7 @@ const getSubscriptionServiceList = async (ssDto, pageDto) => {
         subscriptionServices,
     };
 
-    if (pageDto.offset == 0) {
+    if (!pageDto.offset) {
         const hashtags = await Hashtag.findAll({
             where: {
                 categoryId: ssDto.categoryId,
