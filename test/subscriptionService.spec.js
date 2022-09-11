@@ -69,6 +69,17 @@ describe('GET /subscriptionService는', () => {
         });
     });
 
+    describe('구독서비스 목록 조회시', () => {
+        it('hashtagId로 응답한다 ', (done) => {
+            request(app)
+                .get('/subscriptionService/list?categoryId=1&hashtagId=1')
+                .end((err, res) => {
+                    res.body.should.be.instanceOf(Object);
+                    done();
+                });
+        });
+    });
+
     describe('구독서비스 상세 조회시', () => {
         it('구독서비스 정보를 담은 객체응답한다 ', (done) => {
             request(app)

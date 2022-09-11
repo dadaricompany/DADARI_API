@@ -20,17 +20,26 @@ const getMainSubscriptionService = async (ssDto, pageDto) => {
 };
 
 const getSubscriptionServiceList = async (ssDto, pageDto) => {
+    let ssWhere = {
+        categoryId: ssDto.categoryId,
+    };
+
+    let htWhere = {};
+
+    if (ssDto.hashtagId) {
+        htWhere.id = ssDto.hashtagId;
+    }
+
     const subscriptionServices = await SubscriptionService.findAll(
         {
             include: [
                 {
                     model: Hashtag,
                     attributes: ['name'],
+                    where: htWhere,
                 },
             ],
-            where: {
-                categoryId: ssDto.categoryId,
-            },
+            where: ssWhere,
         },
         {
             offset: pageDto.offset,

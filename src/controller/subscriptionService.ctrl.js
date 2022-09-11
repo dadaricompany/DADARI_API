@@ -95,6 +95,8 @@ router.get(
         query('categoryId').notEmpty().withMessage('categoryId는 필수값입니다.'),
         query('limit').optional().isNumeric().withMessage('숫자를 입력해주세요'),
         query('page').optional().isNumeric().withMessage('숫자를 입력해주세요'),
+        query('query').optional(),
+        query('hashtagId').optional(),
     ],
     wrapAsync(async (req, res, next) => {
         // 값 검증
@@ -106,6 +108,7 @@ router.get(
         var result = await svc.getSubscriptionServiceList(
             {
                 categoryId: req.query.categoryId,
+                hashtagId: req.query.hashtagId,
             },
             PaginationUtil.buildOffsetLimit(req) // pagination
         );
