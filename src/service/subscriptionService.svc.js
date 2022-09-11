@@ -40,11 +40,13 @@ const getSubscriptionServiceList = async (ssDto, pageDto) => {
                 },
             ],
             where: ssWhere,
-        },
+        }
+        /*
         {
             offset: pageDto.offset,
             limit: pageDto.limit,
         }
+        */
     );
     var result = {
         subscriptionServices,
