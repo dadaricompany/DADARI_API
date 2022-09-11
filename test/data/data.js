@@ -5,6 +5,8 @@ const subscriptionServices = [
         nameKr: '넷플렉스',
         smallLogoPath: '/images/logo/icon-100-netflix.png',
         bigLogoPath: '/images/logo/icon-100-netflix@2x.png',
+        mainUrl: 'https://www.netflix.com/browse',
+        policyUrl: 'https://help.netflix.com/ko/node/24926?ui_action=kb-article-popular-categories',
         description:
             '넷플릭스는 TV 프로그램과 영화를 인터넷 연결 지원 디바이스에서 광고 없이 시청할 수 있는 멤버십 기반 스트리밍 서비스입니다.',
         updateBy: 'admin',
@@ -17,6 +19,8 @@ const subscriptionServices = [
         nameKr: '유튜브',
         smallLogoPath: '/images/logo/icon-100-youtube@2x.png',
         bigLogoPath: '/images/logo/icon-100-youtube@2x.png',
+        mainUrl: 'https://www.youtube.com',
+        policyUrl: 'https://www.youtube.com/premium',
         description: '유튜브',
         updateBy: 'admin',
         createBy: 'admin',
@@ -28,6 +32,9 @@ const subscriptionServices = [
         nameKr: '디즈니플러스',
         smallLogoPath: '/images/logo/icon-100-disnyplus.png',
         bigLogoPath: '/images/logo/icon-100-disnyplus@2x.png',
+        mainUrl: 'https://www.disneyplus.com/ko-kr',
+        policyUrl:
+            'https://www.disneyplus.com/ko-kr/legal/%EB%94%94%EC%A6%88%EB%8B%88%2B-%EC%9D%B4%EC%9A%A9%EC%95%BD%EA%B4%80',
         description: '마블',
         updateBy: 'admin',
         createBy: 'admin',

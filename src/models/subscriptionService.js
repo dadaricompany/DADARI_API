@@ -27,6 +27,16 @@ module.exports = class SubscriptionService extends Sequelize.Model {
                     allowNull: false,
                     unique: false,
                 },
+                mainUrl: {
+                    type: Sequelize.STRING(200),
+                    allowNull: false,
+                    unique: false,
+                },
+                policyUrl: {
+                    type: Sequelize.STRING(200),
+                    allowNull: false,
+                    unique: false,
+                },
                 description: {
                     type: Sequelize.STRING(5000),
                     allowNull: true,

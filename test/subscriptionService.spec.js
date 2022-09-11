@@ -17,15 +17,15 @@ describe('GET /subscriptionService는', () => {
     before(async () => {
         await app.models.sequelize
             .sync({ force: true })
-            .then(() => {
-                app.models.Category.bulkCreate(category);
-                app.models.Hashtag.bulkCreate(hashtag);
-                app.models.SubscriptionService.bulkCreate(subscriptionServices);
+            .then(async () => {
+                await app.models.Category.bulkCreate(category);
+                await app.models.Hashtag.bulkCreate(hashtag);
+                await app.models.SubscriptionService.bulkCreate(subscriptionServices);
 
-                app.models.SubscriptionServiceHashtag.bulkCreate(subscriptionServiceHashtag);
-                app.models.Membership.bulkCreate(memberships);
-                app.models.ComparisonItem.bulkCreate(comparisonItems);
-                app.models.ComparisonValue.bulkCreate(comparisonValues);
+                await app.models.SubscriptionServiceHashtag.bulkCreate(subscriptionServiceHashtag);
+                await app.models.Membership.bulkCreate(memberships);
+                await app.models.ComparisonItem.bulkCreate(comparisonItems);
+                await app.models.ComparisonValue.bulkCreate(comparisonValues);
             })
             .catch((err) => {
                 console.error('>>>>', err);
@@ -70,9 +70,20 @@ describe('GET /subscriptionService는', () => {
     });
 
     describe('구독서비스 목록 조회시', () => {
-        it('hashtagId로 응답한다 ', (done) => {
+        it('hashtags로 검색된다. ', (done) => {
             request(app)
-                .get('/subscriptionService/list?categoryId=1&hashtagId=1')
+                .get('/subscriptionService/list?categoryId=1&hashtags=1,2')
+                .end((err, res) => {
+                    res.body.should.be.instanceOf(Object);
+                    done();
+                });
+        });
+    });
+
+    describe('구독서비스 목록 조회시', () => {
+        it('query로 검색된다. ', (done) => {
+            request(app)
+                .get('/subscriptionService/list?categoryId=1&query=t')
                 .end((err, res) => {
                     res.body.should.be.instanceOf(Object);
                     done();

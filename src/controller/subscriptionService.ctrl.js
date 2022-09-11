@@ -88,6 +88,16 @@ router.get(
  *      required: false
  *      schema:
  *       type: integer
+ *    - in: query
+ *      name: query
+ *      required: false
+ *      schema:
+ *       type: string
+ *    - in: query
+ *      name: hashtags
+ *      required: false
+ *      schema:
+ *       type: string
  */
 router.get(
     '/list',
@@ -96,7 +106,7 @@ router.get(
         query('limit').optional().isNumeric().withMessage('숫자를 입력해주세요'),
         query('page').optional().isNumeric().withMessage('숫자를 입력해주세요'),
         query('query').optional(),
-        query('hashtagId').optional(),
+        query('hashtags').optional(),
     ],
     wrapAsync(async (req, res, next) => {
         // 값 검증
@@ -108,7 +118,8 @@ router.get(
         var result = await svc.getSubscriptionServiceList(
             {
                 categoryId: req.query.categoryId,
-                hashtagId: req.query.hashtagId,
+                hashtags: req.query.hashtags,
+                query: req.query.query ? req.query.query : '',
             },
             PaginationUtil.buildOffsetLimit(req) // pagination
         );
