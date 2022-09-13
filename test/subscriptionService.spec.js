@@ -17,15 +17,15 @@ describe('GET /subscriptionService는', () => {
     before(async () => {
         await app.models.sequelize
             .sync({ force: true })
-            .then(() => {
-                app.models.Category.bulkCreate(category);
-                app.models.Hashtag.bulkCreate(hashtag);
-                app.models.SubscriptionService.bulkCreate(subscriptionServices);
+            .then(async () => {
+                await app.models.Category.bulkCreate(category);
+                await app.models.Hashtag.bulkCreate(hashtag);
+                await app.models.SubscriptionService.bulkCreate(subscriptionServices);
 
-                app.models.SubscriptionServiceHashtag.bulkCreate(subscriptionServiceHashtag);
-                app.models.Membership.bulkCreate(memberships);
-                app.models.ComparisonItem.bulkCreate(comparisonItems);
-                app.models.ComparisonValue.bulkCreate(comparisonValues);
+                await app.models.SubscriptionServiceHashtag.bulkCreate(subscriptionServiceHashtag);
+                await app.models.Membership.bulkCreate(memberships);
+                await app.models.ComparisonItem.bulkCreate(comparisonItems);
+                await app.models.ComparisonValue.bulkCreate(comparisonValues);
             })
             .catch((err) => {
                 console.error('>>>>', err);
@@ -84,6 +84,19 @@ describe('GET /subscriptionService는', () => {
         it('구독서비스 정보를 담은 객체응답한다 ', (done) => {
             request(app)
                 .get('/subscriptionService/1')
+                .end((err, res) => {
+                    res.body.should.be.instanceOf(Object);
+                    done();
+                });
+        });
+    });
+
+    describe('구독서비스 비교 조회시', () => {
+        it('구독서비스 정보를 담은 객체응답한다 ', (done) => {
+            request(app)
+                .get(
+                    '/subscriptionService/compare?categoryId=1&subscriptionServiceId01=1&subscriptionServiceId02=2'
+                )
                 .end((err, res) => {
                     res.body.should.be.instanceOf(Object);
                     done();

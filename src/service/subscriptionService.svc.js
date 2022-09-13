@@ -1,6 +1,6 @@
 const {
-    ComparisonItem,
     Category,
+    ComparisonItem,
     ComparisonValue,
     SubscriptionService,
     Membership,
@@ -68,6 +68,18 @@ const getSubscriptionServiceList = async (ssDto, pageDto) => {
 
 const getSubscriptionService = async (ssDto) => {
     var memberships = {};
+    /*
+    const subServiceFee = await Category.findOne({
+        include: [
+            {
+                model: Category,
+                attributes: ['template', 'nameKr'],
+            },
+        ],
+        where: {
+            id: ssDto.id,
+        },
+    });*/
 
     const subService = await SubscriptionService.findOne({
         include: [
@@ -127,12 +139,15 @@ const getSubscriptionService = async (ssDto) => {
                     memberships[mindex].comparisonValues[index].comparisonItem.type === 'BARCHART'
                 ) {
                     let value = memberships[mindex].comparisonValues[index].value;
+                    let avgValue = {};
                     let multiValue = {};
                     let label = [];
                     let data = [];
 
                     label.push(subService.nameKr); // 구독서비스 이름 라벨추가
                     label.push(subService.category.nameKr + ' 평균'); // 구독서비스 카테고리평균 라벨추가
+                    data.push(value); // 구독서비스 값 추가
+                    data.push(value); // 구독서비스 값 추가
                 }
                 comparisonValueArr.push(memberships[mindex].comparisonValues[index]);
                 index++;
@@ -150,13 +165,18 @@ const getSubscriptionService = async (ssDto) => {
     return subService;
 };
 
-const getCompareSubscriptionService = async (ssDto, pageDto) => {
-    const main = await Category.findAll({
+const getCompareSubscriptionService = async (ssDto) => {
+    const main = await ComparisonItem.findAll({
+        attributes: [sequelize.fn('SUM', sequelize.col('comparisonValues.value'))],
         include: [
             {
-                model: SubscriptionService,
+                model: ComparisonValue,
             },
         ],
+        where: {
+            code: 'MONTH_FEE',
+            categoryId: ssDto.categoryId,
+        },
     });
 
     return main;

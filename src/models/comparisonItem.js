@@ -4,6 +4,10 @@ module.exports = class ComparisonItem extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
+                code: {
+                    type: Sequelize.STRING(50),
+                    allowNull: false,
+                },
                 name: {
                     type: Sequelize.STRING(50),
                     allowNull: false,
@@ -14,6 +18,10 @@ module.exports = class ComparisonItem extends Sequelize.Model {
                 },
                 type: {
                     type: Sequelize.STRING(20),
+                    allowNull: false,
+                },
+                imgUrl: {
+                    type: Sequelize.STRING(50),
                     allowNull: false,
                 },
                 sort: {
@@ -35,5 +43,8 @@ module.exports = class ComparisonItem extends Sequelize.Model {
     }
     static associate(db) {
         db.ComparisonItem.belongsTo(db.Category, { foreignKey: 'categoryId' });
+        db.ComparisonItem.hasMany(db.ComparisonValue, {
+            foreignKey: 'comparisonItemId',
+        });
     }
 };

@@ -121,6 +121,59 @@ router.get(
 /**
  * @swagger
  * paths:
+ *  /subscriptionService/list:
+ *   get:
+ *    tags:
+ *    - List API
+ *    description: 카테고리별 구독서비스 조회
+ *    parameters:
+ *    - in: query
+ *      name: categoryId
+ *      required: true
+ *      schema:
+ *       type: integer
+ *    - in: query
+ *      name: page
+ *      required: false
+ *      schema:
+ *       type: integer
+ *    - in: query
+ *      name: limit
+ *      required: false
+ *      schema:
+ *       type: integer
+ */
+router.get(
+    '/compare',
+    [
+        query('categoryId').notEmpty().withMessage('categoryId는 필수값입니다.'),
+        query('subscriptionServiceId01')
+            .notEmpty()
+            .withMessage('subscriptionServiceId01는 필수값입니다.'),
+        query('subscriptionServiceId02')
+            .notEmpty()
+            .withMessage('subscriptionServiceId02는 필수값입니다.'),
+    ],
+    wrapAsync(async (req, res, next) => {
+        // 값 검증
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            throw { message: '입력값을 확인해주세요.', stack: JSON.stringify(errors.array()) };
+        }
+
+        var result = await svc.getCompareSubscriptionService({
+            categoryId: req.query.categoryId,
+            subscriptionServiceId01: req.query.subscriptionServiceId01,
+            subscriptionServiceId02: req.query.subscriptionServiceId02,
+        });
+
+        logger.debug(JSON.stringify(result));
+        res.json(result);
+    })
+);
+/**
+ * @swagger
+ * paths:
  *  /subscriptionService/{id}:
  *   get:
  *    tags:
