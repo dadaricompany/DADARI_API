@@ -20,12 +20,13 @@ const getMainSubscriptionService = async (ssDto, pageDto) => {
 };
 
 const getSubscriptionServiceList = async (ssDto, pageDto) => {
+    // SubscriptinService 조건
     let ssWhere = {
         categoryId: ssDto.categoryId,
     };
 
+    // hashtag 조건
     let htWhere = {};
-
     if (ssDto.hashtagId) {
         htWhere.id = ssDto.hashtagId;
     }
@@ -72,7 +73,7 @@ const getSubscriptionService = async (ssDto) => {
         include: [
             {
                 model: Category,
-                attributes: ['template'],
+                attributes: ['template', 'nameKr'],
             },
         ],
         where: {
@@ -108,8 +109,8 @@ const getSubscriptionService = async (ssDto) => {
         memberships = result.map((el) => el.get({ plain: true }));
     });
 
+    // 카테고리의 비교항목 배열 탬플릿에 맞게 데이터 맞춤
     var template = subService.category.template.split(' ');
-
     for (var mindex in memberships) {
         var index = 0;
         var comparisonValues = [];
@@ -121,10 +122,24 @@ const getSubscriptionService = async (ssDto) => {
                     break tmplt;
                 }
 
+                // 바차트(월구독료) 평균 구독료 추가
+                if (
+                    memberships[mindex].comparisonValues[index].comparisonItem.type === 'BARCHART'
+                ) {
+                    let value = memberships[mindex].comparisonValues[index].value;
+                    let multiValue = {};
+                    let label = [];
+                    let data = [];
+
+                    label.push(subService.nameKr); // 구독서비스 이름 라벨추가
+                    label.push(subService.category.nameKr + ' 평균'); // 구독서비스 카테고리평균 라벨추가
+                }
                 comparisonValueArr.push(memberships[mindex].comparisonValues[index]);
                 index++;
             }
+
             comparisonValues.push(comparisonValueArr);
+            // 템플릿 형태로 데이터 만드는 로직
         }
 
         memberships[mindex].comparisonValues = comparisonValues;
