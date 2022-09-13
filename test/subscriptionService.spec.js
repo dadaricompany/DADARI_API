@@ -70,9 +70,20 @@ describe('GET /subscriptionService는', () => {
     });
 
     describe('구독서비스 목록 조회시', () => {
-        it('hashtagId로 응답한다 ', (done) => {
+        it('hashtags로 검색된다. ', (done) => {
             request(app)
-                .get('/subscriptionService/list?categoryId=1&hashtagId=1')
+                .get('/subscriptionService/list?categoryId=1&hashtags=1,2')
+                .end((err, res) => {
+                    res.body.should.be.instanceOf(Object);
+                    done();
+                });
+        });
+    });
+
+    describe('구독서비스 목록 조회시', () => {
+        it('query로 검색된다. ', (done) => {
+            request(app)
+                .get('/subscriptionService/list?categoryId=1&query=t')
                 .end((err, res) => {
                     res.body.should.be.instanceOf(Object);
                     done();

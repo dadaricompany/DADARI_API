@@ -6,6 +6,7 @@ const {
     Membership,
     Hashtag,
 } = require('../models');
+const { Op } = require('sequelize');
 
 const getMainSubscriptionService = async (ssDto, pageDto) => {
     const main = await Category.findAll({
@@ -20,15 +21,42 @@ const getMainSubscriptionService = async (ssDto, pageDto) => {
 };
 
 const getSubscriptionServiceList = async (ssDto, pageDto) => {
-    // SubscriptinService 조건
+    // subscriptionService 검색조건
     let ssWhere = {
         categoryId: ssDto.categoryId,
+        [Op.or]: [
+            {
+                nameEng: {
+                    [Op.like]: '%' + ssDto.query + '%',
+                },
+            },
+            {
+                nameKr: {
+                    [Op.like]: '%' + ssDto.query + '%',
+                },
+            },
+            {
+                description: {
+                    [Op.like]: '%' + ssDto.query + '%',
+                },
+            },
+        ],
     };
 
-    // hashtag 조건
+    // hashtag 검색조건
     let htWhere = {};
-    if (ssDto.hashtagId) {
-        htWhere.id = ssDto.hashtagId;
+    if (ssDto.hashtags) {
+        let hashtagList = ssDto.hashtags.split(',');
+        let orList = [];
+        for (var hashtgaId of hashtagList) {
+            orList.push({
+                id: hashtgaId,
+            });
+        }
+
+        htWhere = {
+            [Op.or]: orList,
+        };
     }
 
     const subscriptionServices = await SubscriptionService.findAll(
@@ -38,14 +66,17 @@ const getSubscriptionServiceList = async (ssDto, pageDto) => {
                     model: Hashtag,
                     attributes: ['name'],
                     where: htWhere,
+                    required: false,
                 },
             ],
             where: ssWhere,
-        },
+        }
+        /*
         {
             offset: pageDto.offset,
             limit: pageDto.limit,
         }
+        */
     );
     var result = {
         subscriptionServices,
