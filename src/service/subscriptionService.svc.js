@@ -134,7 +134,6 @@ const getSubscriptionService = async (ssDto) => {
         group: ['comparisonItem.id'],
         raw: true,
     }).then((result) => {
-        logger.debug('>>>>> 들어옴' + result.avg);
         subServiceFee = String(result.avg);
     });
 
@@ -222,6 +221,42 @@ const getSubscriptionService = async (ssDto) => {
     return subService;
 };
 
+const getSubscriptionServiceSearch = async (ssDto) => {
+    // subscriptionService 검색조건
+    let ssWhere = {
+        [sequelize.Op.or]: [
+            {
+                nameEng: {
+                    [sequelize.Op.like]: '%' + ssDto.query + '%',
+                },
+            },
+            {
+                nameKr: {
+                    [sequelize.Op.like]: '%' + ssDto.query + '%',
+                },
+            },
+            {
+                description: {
+                    [sequelize.Op.like]: '%' + ssDto.query + '%',
+                },
+            },
+        ],
+    };
+
+    const result = await Category.findAll({
+        attributes: ['nameKr'],
+        include: [
+            {
+                model: SubscriptionService,
+                attributes: ['nameKr', 'nameEng', 'bigLogoPath', 'smallLogoPath', 'description'],
+                where: ssWhere,
+            },
+        ],
+    });
+
+    return result;
+};
+
 const getCompareSubscriptionService = async (ssDto) => {
     const main = await ComparisonValue.findOne({
         attributes: [sequelize.fn('avg', sequelize.cast(sequelize.col('value'), 'int4'))],
@@ -263,5 +298,6 @@ module.exports = {
     getSubscriptionService,
     getMainSubscriptionService,
     getSubscriptionServiceList,
+    getSubscriptionServiceSearch,
     getCompareSubscriptionService,
 };

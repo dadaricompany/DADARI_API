@@ -132,6 +132,41 @@ router.get(
 /**
  * @swagger
  * paths:
+ *  /subscriptionService/search:
+ *   get:
+ *    tags:
+ *    - Search API
+ *    description: 구독서비스 검색
+ *    parameters:
+ *    - in: query
+ *      name: query
+ *      required: false
+ *      schema:
+ *       type: string
+ *
+ */
+router.get(
+    '/search',
+    [query('query').optional()],
+    wrapAsync(async (req, res, next) => {
+        // 값 검증
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            throw { message: '입력값을 확인해주세요.', stack: JSON.stringify(errors.array()) };
+        }
+
+        var result = await svc.getSubscriptionServiceSearch({
+            query: req.query.query ? req.query.query : '',
+        });
+
+        logger.debug(JSON.stringify(result));
+        res.json(result);
+    })
+);
+
+/**
+ * @swagger
+ * paths:
  *  /subscriptionService/list:
  *   get:
  *    tags:

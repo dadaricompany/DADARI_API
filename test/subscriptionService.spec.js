@@ -102,6 +102,17 @@ describe('GET /subscriptionService는', () => {
         });
     });
 
+    describe('구독서비스 검색 조회시', () => {
+        it('구독서비스 검색 결과를 담은 배열를 응답한다 ', (done) => {
+            request(app)
+                .get('/subscriptionService/search?query=e')
+                .end((err, res) => {
+                    res.body.should.be.instanceOf(Array);
+                    done();
+                });
+        });
+    });
+
     describe('구독서비스 비교 조회시', () => {
         it('구독서비스 정보를 담은 객체응답한다 ', (done) => {
             request(app)
