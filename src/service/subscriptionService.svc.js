@@ -6,7 +6,8 @@ const {
     Membership,
     Hashtag,
 } = require('../models');
-const { Op } = require('sequelize');
+const sequelize = require('sequelize');
+const logger = require('../../config/winston');
 
 const getMainSubscriptionService = async (ssDto, pageDto) => {
     const main = await Category.findAll({
@@ -24,20 +25,20 @@ const getSubscriptionServiceList = async (ssDto, pageDto) => {
     // subscriptionService 검색조건
     let ssWhere = {
         categoryId: ssDto.categoryId,
-        [Op.or]: [
+        [sequelize.Op.or]: [
             {
                 nameEng: {
-                    [Op.like]: '%' + ssDto.query + '%',
+                    [sequelize.Op.like]: '%' + ssDto.query + '%',
                 },
             },
             {
                 nameKr: {
-                    [Op.like]: '%' + ssDto.query + '%',
+                    [sequelize.Op.like]: '%' + ssDto.query + '%',
                 },
             },
             {
                 description: {
-                    [Op.like]: '%' + ssDto.query + '%',
+                    [sequelize.Op.like]: '%' + ssDto.query + '%',
                 },
             },
         ],
@@ -55,7 +56,7 @@ const getSubscriptionServiceList = async (ssDto, pageDto) => {
         }
 
         htWhere = {
-            [Op.or]: orList,
+            [sequelize.Op.or]: orList,
         };
     }
 
@@ -99,18 +100,6 @@ const getSubscriptionServiceList = async (ssDto, pageDto) => {
 
 const getSubscriptionService = async (ssDto) => {
     var memberships = {};
-    /*
-    const subServiceFee = await Category.findOne({
-        include: [
-            {
-                model: Category,
-                attributes: ['template', 'nameKr'],
-            },
-        ],
-        where: {
-            id: ssDto.id,
-        },
-    });*/
 
     const subService = await SubscriptionService.findOne({
         include: [
@@ -124,6 +113,31 @@ const getSubscriptionService = async (ssDto) => {
         },
     });
 
+    // 월 구독료 평균
+    var subServiceFee = 0;
+    await ComparisonValue.findOne({
+        attributes: [
+            sequelize.cast(
+                sequelize.fn('avg', sequelize.cast(sequelize.col('value'), 'int4')),
+                'int4'
+            ),
+        ],
+        include: [
+            {
+                model: ComparisonItem,
+                where: {
+                    code: 'MONTH_FEE',
+                    categoryId: subService.categoryId,
+                },
+            },
+        ],
+        group: ['comparisonItem.id'],
+        raw: true,
+    }).then((result) => {
+        logger.debug('>>>>> 들어옴' + result.avg);
+        subServiceFee = String(result.avg);
+    });
+
     await Membership.findAll({
         include: [
             {
@@ -132,7 +146,7 @@ const getSubscriptionService = async (ssDto) => {
                 include: [
                     {
                         model: ComparisonItem,
-                        attributes: ['name', 'unit', 'type', 'sort'],
+                        attributes: ['code', 'name', 'unit', 'type', 'sort'],
                     },
                 ],
 
@@ -160,6 +174,7 @@ const getSubscriptionService = async (ssDto) => {
         tmplt: for (var cnt of template) {
             var comparisonValueArr = [];
             for (var i = 0; i < Number(cnt); i++) {
+                // 템플릿 형태로 데이터 만드는 로직
                 if (!memberships[mindex].comparisonValues[index]) {
                     comparisonValues.push(comparisonValueArr);
                     break tmplt;
@@ -167,25 +182,36 @@ const getSubscriptionService = async (ssDto) => {
 
                 // 바차트(월구독료) 평균 구독료 추가
                 if (
-                    memberships[mindex].comparisonValues[index].comparisonItem.type === 'BARCHART'
+                    memberships[mindex].comparisonValues[index].comparisonItem.code === 'MONTH_FEE'
                 ) {
                     let value = memberships[mindex].comparisonValues[index].value;
-                    let avgValue = {};
                     let multiValue = {};
-                    let label = [];
+                    let labels = [];
                     let data = [];
 
-                    label.push(subService.nameKr); // 구독서비스 이름 라벨추가
-                    label.push(subService.category.nameKr + ' 평균'); // 구독서비스 카테고리평균 라벨추가
-                    data.push(value); // 구독서비스 값 추가
-                    data.push(value); // 구독서비스 값 추가
+                    labels.push(subService.nameKr); // 구독서비스 이름 라벨추가
+                    labels.push(subService.category.nameKr + ' 평균'); // 구독서비스 카테고리평균 라벨추가
+                    data.push(value); // 구독서비스 구독료 추가
+                    data.push(subServiceFee); // 구독서비스 구독료평균 추가
+                    multiValue.labels = labels;
+                    multiValue.data = data;
+
+                    memberships[mindex].comparisonValues[index].value = multiValue;
+                }
+                // 바차트(월구독료) 평균 구독료 추가
+                else if (
+                    memberships[mindex].comparisonValues[index].comparisonItem.code ===
+                    'CONTENTS_COUNT'
+                ) {
+                    let value = memberships[mindex].comparisonValues[index].value;
+                    memberships[mindex].comparisonValues[index].value = JSON.parse(value);
+                    logger.debug(JSON.parse(value));
                 }
                 comparisonValueArr.push(memberships[mindex].comparisonValues[index]);
                 index++;
             }
 
             comparisonValues.push(comparisonValueArr);
-            // 템플릿 형태로 데이터 만드는 로직
         }
 
         memberships[mindex].comparisonValues = comparisonValues;
@@ -197,18 +223,38 @@ const getSubscriptionService = async (ssDto) => {
 };
 
 const getCompareSubscriptionService = async (ssDto) => {
+    const main = await ComparisonValue.findOne({
+        attributes: [sequelize.fn('avg', sequelize.cast(sequelize.col('value'), 'int4'))],
+        include: [
+            {
+                model: ComparisonItem,
+                where: {
+                    code: 'MONTH_FEE',
+                    categoryId: ssDto.categoryId,
+                },
+            },
+        ],
+        group: ['comparisonItem.id'],
+        raw: true,
+    });
+    /*
     const main = await ComparisonItem.findAll({
-        attributes: [sequelize.fn('SUM', sequelize.col('comparisonValues.value'))],
+        attributes: [
+            sequelize.fn('SUM', sequelize.cast(sequelize.col('comparisonValues.value'), 'int4')),
+        ],
         include: [
             {
                 model: ComparisonValue,
+                attributes: ['value'],
             },
         ],
         where: {
             code: 'MONTH_FEE',
             categoryId: ssDto.categoryId,
         },
-    });
+        group: ['comparisonItem.id'],
+        raws: true,
+    });*/
 
     return main;
 };

@@ -5,7 +5,7 @@ module.exports = class ComparisonValue extends Sequelize.Model {
         return super.init(
             {
                 value: {
-                    type: Sequelize.STRING(50),
+                    type: Sequelize.STRING(200),
                     allowNull: true,
                 },
             },

@@ -237,7 +237,7 @@ const comparisonValues = [
     },
     {
         id: 7,
-        value: '70000',
+        value: '{ "labels": ["영화", "기타"], "data": ["20000", "50000"] }',
         comparisonItemId: 7,
         membershipId: 1,
     },
@@ -279,7 +279,7 @@ const comparisonValues = [
     },
     {
         id: 14,
-        value: '70000',
+        value: '{ "labels": ["영화", "기타"], "data": ["20000", "50000"] }',
         comparisonItemId: 7,
         membershipId: 2,
     },
@@ -321,7 +321,7 @@ const comparisonValues = [
     },
     {
         id: 28,
-        value: '70000',
+        value: '{ "labels": ["영화", "기타"], "data": ["20000", "50000"] }',
         comparisonItemId: 7,
         membershipId: 4,
     },

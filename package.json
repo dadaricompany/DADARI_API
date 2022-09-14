@@ -5,7 +5,6 @@
     "main": "app.js",
     "scripts": {
         "//": "mocha src/service/test/subscriptionService.spec.js",
-        "test": "NODE_ENV=test mocha test/subscriptionService.spec.js --timeout 15000 -exit",
         "debug": "mocha --inspect-brk",
         "start": "nodemon app"
     },
