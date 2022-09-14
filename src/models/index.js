@@ -7,6 +7,9 @@ const Category = require('./category');
 const SubscriptionService = require('./subscriptionService');
 const ComparisonItem = require('./comparisonItem');
 const ComparisonValue = require('./comparisonValue');
+const Membership = require('./membership');
+const Hashtag = require('./hashtag');
+const SubscriptionServiceHashtag = require('./subscriptionServiceHashtag');
 
 const env = process.env.NODE_ENV || 'development';
 const config = require('../../config/config')[env]; // config/config.json에서 데이터베이스 설정을 불러옴
@@ -26,23 +29,32 @@ db.Comment = Comment;
 db.User = User;
 db.Category = Category;
 db.SubscriptionService = SubscriptionService;
+db.Membership = Membership;
 db.ComparisonItem = ComparisonItem;
 db.ComparisonValue = ComparisonValue;
+db.Hashtag = Hashtag;
+db.SubscriptionServiceHashtag = SubscriptionServiceHashtag;
 
 // 각 모델의 static init을 호출, init이 실행되어야 테이블이 모델로 연결(테이블-모델 연결)
 Comment.init(sequelize);
 User.init(sequelize);
 Category.init(sequelize);
 SubscriptionService.init(sequelize);
+Membership.init(sequelize);
 ComparisonItem.init(sequelize);
 ComparisonValue.init(sequelize);
+Hashtag.init(sequelize);
+SubscriptionServiceHashtag.init(sequelize);
 
 // 다른 테이블과 관계를 연결
 Comment.associate(db);
 User.associate(db);
 Category.associate(db);
 SubscriptionService.associate(db);
+Membership.associate(db);
 ComparisonItem.associate(db);
 ComparisonValue.associate(db);
+Hashtag.associate(db);
+SubscriptionServiceHashtag.associate(db);
 
 module.exports = db;

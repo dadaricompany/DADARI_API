@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
+const cors = require('cors');
+
 const { swaggerUi, specs } = require('./config/swagger/swagger');
 
 const nunjucks = require('nunjucks');
@@ -37,6 +39,19 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 app.models = db;
+
+var safesitelist = ['http://localhost:3000'];
+
+var corsOptions = {
+    origin: function (origin, callback) {
+        var issafesitelisted = safesitelist.indexOf(origin) !== -1;
+        callback(null, issafesitelisted);
+    },
+    credentials: true,
+};
+
+//cors에 옵션사용할경우
+app.use(cors(corsOptions));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
 app.use(morgan('dev'));

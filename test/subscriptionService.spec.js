@@ -3,100 +3,29 @@ const should = require('should');
 const app = require('../app.js');
 //const models = require('../src/models');
 const logger = require('../config/winston.js');
+const {
+    subscriptionServices,
+    memberships,
+    hashtag,
+    subscriptionServiceHashtag,
+    category,
+    comparisonItems,
+    comparisonValues,
+} = require('./data/data.js');
 
 describe('GET /subscriptionService는', () => {
-    const subscriptionServices = [
-        {
-            id: 1,
-            nameEng: 'netflex',
-            nameKr: '넷플렉스',
-            logoPath: '/logo/subscriptionService/netflex.jpg',
-            description: '1등서비스',
-            updateBy: 'admin',
-            createBy: 'admin',
-            categoryId: 1,
-        },
-        {
-            id: 2,
-            nameEng: 'youtube',
-            nameKr: '유튜브',
-            logoPath: '/logo/subscriptionService/youtube.jpg',
-            description: '유튜브',
-            updateBy: 'admin',
-            createBy: 'admin',
-            categoryId: 1,
-        },
-        {
-            id: 3,
-            nameEng: 'disney plus',
-            nameKr: '디즈니플러스',
-            logoPath: '/logo/subscriptionService/disney_plus.jpg',
-            description: '마블',
-            updateBy: 'admin',
-            createBy: 'admin',
-            categoryId: 1,
-        },
-    ];
-
-    const category = [
-        {
-            id: 1,
-            nameKr: '영화/드라마',
-            nameEng: 'movie',
-            description: '영화/드라마',
-            logoPath: '/logo/category/movie.jpg',
-            sort: 1,
-        },
-        {
-            id: 2,
-            nameKr: '음악',
-            nameEng: 'music',
-            description: '음악',
-            logoPath: '/logo/category/music.jpg',
-            sort: 2,
-        },
-    ];
-
-    const comparisonItems = [
-        {
-            id: 1,
-            name: '가격',
-            unit: '원',
-            type: 'NUMBER',
-            categoryId: 1,
-        },
-        {
-            id: 2,
-            name: '제공서비스',
-            unit: '',
-            type: 'TEXT',
-            categoryId: 1,
-        },
-    ];
-
-    const comparisonValues = [
-        {
-            id: 1,
-            value: '9500',
-            comparisonItemId: 1,
-            subscriptionServiceId: 1,
-        },
-        {
-            id: 2,
-            value: '영화, 드라마',
-            comparisonItemId: 2,
-            subscriptionServiceId: 1,
-        },
-    ];
-
     before(async () => {
         await app.models.sequelize
-            .sync({ force: false })
-            .then(() => {
-                app.models.Category.bulkCreate(category);
-                app.models.SubscriptionService.bulkCreate(subscriptionServices);
-                app.models.ComparisonItem.bulkCreate(comparisonItems);
-                app.models.ComparisonValue.bulkCreate(comparisonValues);
+            .sync({ force: true })
+            .then(async () => {
+                await app.models.Category.bulkCreate(category);
+                await app.models.Hashtag.bulkCreate(hashtag);
+                await app.models.SubscriptionService.bulkCreate(subscriptionServices);
+
+                await app.models.SubscriptionServiceHashtag.bulkCreate(subscriptionServiceHashtag);
+                await app.models.Membership.bulkCreate(memberships);
+                await app.models.ComparisonItem.bulkCreate(comparisonItems);
+                await app.models.ComparisonValue.bulkCreate(comparisonValues);
             })
             .catch((err) => {
                 console.error('>>>>', err);
@@ -107,10 +36,89 @@ describe('GET /subscriptionService는', () => {
     });
 
     describe('메인목록 조회시', () => {
-        it('구독서비스 객체를 담은 배열로 응답한다 ', (done) => {
+        it('구독서비스 객체를 담은 main 객체로 응답한다 ', (done) => {
             request(app)
                 //?page=0&limit=two
                 .get('/subscriptionService/main')
+                .end((err, res) => {
+                    res.body.should.be.instanceOf(Object);
+                    done();
+                });
+        });
+    });
+
+    describe('구독서비스 목록 조회시', () => {
+        it('구독서비스와 카테고리를 담은 객체로 응답한다 ', (done) => {
+            request(app)
+                .get('/subscriptionService/list?categoryId=1&page=1&limit=2')
+                .end((err, res) => {
+                    res.body.should.be.instanceOf(Object);
+                    done();
+                });
+        });
+    });
+
+    describe('구독서비스 목록 조회시', () => {
+        it('페이지가 없으면 0페이지로 응답한다 ', (done) => {
+            request(app)
+                .get('/subscriptionService/list?categoryId=1')
+                .end((err, res) => {
+                    res.body.should.be.instanceOf(Object);
+                    done();
+                });
+        });
+    });
+
+    describe('구독서비스 목록 조회시', () => {
+        it('hashtags로 검색된다. ', (done) => {
+            request(app)
+                .get('/subscriptionService/list?categoryId=1&hashtags=1,2')
+                .end((err, res) => {
+                    res.body.should.be.instanceOf(Object);
+                    done();
+                });
+        });
+    });
+
+    describe('구독서비스 목록 조회시', () => {
+        it('query로 검색된다. ', (done) => {
+            request(app)
+                .get('/subscriptionService/list?categoryId=1&query=t')
+                .end((err, res) => {
+                    res.body.should.be.instanceOf(Object);
+                    done();
+                });
+        });
+    });
+
+    describe('구독서비스 상세 조회시', () => {
+        it('구독서비스 정보를 담은 객체응답한다 ', (done) => {
+            request(app)
+                .get('/subscriptionService/1')
+                .end((err, res) => {
+                    res.body.should.be.instanceOf(Object);
+                    done();
+                });
+        });
+    });
+
+    describe('구독서비스 검색 조회시', () => {
+        it('구독서비스 검색 결과를 담은 배열를 응답한다 ', (done) => {
+            request(app)
+                .get('/subscriptionService/search?query=e')
+                .end((err, res) => {
+                    res.body.should.be.instanceOf(Array);
+                    done();
+                });
+        });
+    });
+
+    describe('구독서비스 비교 조회시', () => {
+        it('구독서비스 정보를 담은 객체응답한다 ', (done) => {
+            request(app)
+                .get(
+                    '/subscriptionService/compare?categoryId=1&subscriptionServiceId01=1&subscriptionServiceId02=2'
+                )
                 .end((err, res) => {
                     res.body.should.be.instanceOf(Object);
                     done();

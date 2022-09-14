@@ -17,8 +17,23 @@ module.exports = class SubscriptionService extends Sequelize.Model {
                     allowNull: false,
                     unique: false,
                 },
-                logoPath: {
+                bigLogoPath: {
                     type: Sequelize.STRING(100),
+                    allowNull: false,
+                    unique: false,
+                },
+                smallLogoPath: {
+                    type: Sequelize.STRING(100),
+                    allowNull: false,
+                    unique: false,
+                },
+                mainUrl: {
+                    type: Sequelize.STRING(200),
+                    allowNull: false,
+                    unique: false,
+                },
+                policyUrl: {
+                    type: Sequelize.STRING(200),
                     allowNull: false,
                     unique: false,
                 },
@@ -55,5 +70,10 @@ module.exports = class SubscriptionService extends Sequelize.Model {
     static associate(db) {
         // 다른 모델과의 관계 <-> static init: 테이블에 대한 설정
         db.SubscriptionService.belongsTo(db.Category, { foreignKey: 'categoryId' });
+
+        db.SubscriptionService.belongsToMany(db.Hashtag, {
+            through: 'subscriptionServiceHashtag',
+            foreignKey: 'subscriptionServiceId',
+        });
     }
 };

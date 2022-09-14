@@ -5,7 +5,7 @@ module.exports = class ComparisonValue extends Sequelize.Model {
         return super.init(
             {
                 value: {
-                    type: Sequelize.STRING(50),
+                    type: Sequelize.STRING(200),
                     allowNull: true,
                 },
             },
@@ -22,8 +22,8 @@ module.exports = class ComparisonValue extends Sequelize.Model {
         );
     }
     static associate(db) {
-        db.ComparisonValue.belongsTo(db.SubscriptionService, {
-            foreignKey: 'subscriptionServiceId',
+        db.ComparisonValue.belongsTo(db.Membership, {
+            foreignKey: 'membershipId',
         });
         db.ComparisonValue.belongsTo(db.ComparisonItem, { foreignKey: 'comparisonItemId' });
     }
