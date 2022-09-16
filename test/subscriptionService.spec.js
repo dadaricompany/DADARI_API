@@ -50,7 +50,7 @@ describe('GET /subscriptionService는', () => {
     describe('구독서비스 목록 조회시', () => {
         it('구독서비스와 카테고리를 담은 객체로 응답한다 ', (done) => {
             request(app)
-                .get('/subscriptionService/list?categoryId=1&page=1&limit=2')
+                .get('/subscriptionService/list?categoryId=1')
                 .end((err, res) => {
                     res.body.should.be.instanceOf(Object);
                     done();

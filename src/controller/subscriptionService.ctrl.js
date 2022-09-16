@@ -48,10 +48,7 @@ router.get(
             throw { message: CONSTS.MESSAGE.INVALID_VALUE, stack: JSON.stringify(errors.array()) };
         }
 
-        var subService = await svc.getMainSubscriptionService(
-            {},
-            PaginationUtil.buildOffsetLimit(req) // pagination
-        );
+        var subService = await svc.getMainSubscriptionService();
 
         var result = {
             main: subService,
@@ -120,8 +117,8 @@ router.get(
                 categoryId: req.query.categoryId,
                 hashtags: req.query.hashtags,
                 query: req.query.query ? req.query.query : '',
-            },
-            PaginationUtil.buildOffsetLimit(req) // pagination
+            }
+            //PaginationUtil.buildOffsetLimit(req) // pagination
         );
 
         logger.debug(JSON.stringify(result));
@@ -170,7 +167,7 @@ router.get(
  *  /subscriptionService/list:
  *   get:
  *    tags:
- *    - List API
+ *    - Compare API
  *    description: 카테고리별 구독서비스 조회
  *    parameters:
  *    - in: query
@@ -207,7 +204,7 @@ router.get(
             throw { message: '입력값을 확인해주세요.', stack: JSON.stringify(errors.array()) };
         }
 
-        var result = await svc.getCompareSubscriptionService({
+        var result = await svc.getSubscriptionServiceCompare({
             categoryId: req.query.categoryId,
             subscriptionServiceId01: req.query.subscriptionServiceId01,
             subscriptionServiceId02: req.query.subscriptionServiceId02,
@@ -217,6 +214,7 @@ router.get(
         res.json(result);
     })
 );
+
 /**
  * @swagger
  * paths:
@@ -247,7 +245,7 @@ router.get(
             throw { message: 'id를 확인해주세요.', stack: null };
         }
 
-        var subService = await svc.getSubscriptionService({
+        var subService = await svc.getSubscriptionServiceDetail({
             id: subscriptionServiceId,
         });
 

@@ -1,169 +1,35 @@
-const {
-    Category,
-    ComparisonItem,
-    ComparisonValue,
-    SubscriptionService,
-    Membership,
-    Hashtag,
-} = require('../models');
-const sequelize = require('sequelize');
 const logger = require('../../config/winston');
+const subscriptionServiceDao = require('../dao/subscriptionServiceDao');
 
-const getMainSubscriptionService = async (ssDto, pageDto) => {
-    const main = await Category.findAll({
-        include: [
-            {
-                model: SubscriptionService,
-            },
-        ],
-    });
-
-    return main;
+const getMainSubscriptionService = async () => {
+    return await subscriptionServiceDao.getMainSubscriptionService();
 };
 
 const getSubscriptionServiceList = async (ssDto, pageDto) => {
-    // subscriptionService 검색조건
-    let ssWhere = {
-        categoryId: ssDto.categoryId,
-        [sequelize.Op.or]: [
-            {
-                nameEng: {
-                    [sequelize.Op.like]: '%' + ssDto.query + '%',
-                },
-            },
-            {
-                nameKr: {
-                    [sequelize.Op.like]: '%' + ssDto.query + '%',
-                },
-            },
-            {
-                description: {
-                    [sequelize.Op.like]: '%' + ssDto.query + '%',
-                },
-            },
-        ],
-    };
-
-    // hashtag 검색조건
-    let htWhere = {};
-    if (ssDto.hashtags) {
-        let hashtagList = ssDto.hashtags.split(',');
-        let orList = [];
-        for (var hashtgaId of hashtagList) {
-            orList.push({
-                id: hashtgaId,
-            });
-        }
-
-        htWhere = {
-            [sequelize.Op.or]: orList,
-        };
-    }
-
-    const subscriptionServices = await SubscriptionService.findAll(
-        {
-            include: [
-                {
-                    model: Hashtag,
-                    attributes: ['name'],
-                    where: htWhere,
-                    required: false,
-                },
-            ],
-            where: ssWhere,
-        }
-        /*
-        {
-            offset: pageDto.offset,
-            limit: pageDto.limit,
-        }
-        */
+    const subscriptionServices = await subscriptionServiceDao.getSubscriptionServiceList(
+        ssDto.categoryId,
+        ssDto.query,
+        ssDto.hashtags
     );
+
     var result = {
         subscriptionServices,
     };
 
-    if (!pageDto.offset) {
-        const hashtags = await Hashtag.findAll({
-            where: {
-                categoryId: ssDto.categoryId,
-            },
-        });
-        const categories = await Category.findAll();
-
-        result.hashtags = hashtags;
-        result.categories = categories;
-    }
+    result.hashtags = await subscriptionServiceDao.getHashTagByCategoryId(ssDto.categoryId);
+    result.categories = await subscriptionServiceDao.getCategoryList();
 
     return result;
 };
 
-const getSubscriptionService = async (ssDto) => {
-    var memberships = {};
-
-    const subService = await SubscriptionService.findOne({
-        include: [
-            {
-                model: Category,
-                attributes: ['template', 'nameKr'],
-            },
-        ],
-        where: {
-            id: ssDto.id,
-        },
-    });
+const getSubscriptionServiceDetail = async (ssDto) => {
+    const subService = await subscriptionServiceDao.getSubscriptionServiceById(ssDto.id);
 
     // 월 구독료 평균
-    var subServiceFee = 0;
-    await ComparisonValue.findOne({
-        attributes: [
-            sequelize.cast(
-                sequelize.fn('avg', sequelize.cast(sequelize.col('value'), 'int4')),
-                'int4'
-            ),
-        ],
-        include: [
-            {
-                model: ComparisonItem,
-                where: {
-                    code: 'MONTH_FEE',
-                    categoryId: subService.categoryId,
-                },
-            },
-        ],
-        group: ['comparisonItem.id'],
-        raw: true,
-    }).then((result) => {
-        subServiceFee = String(result.avg);
-    });
+    var subServiceFee = await subscriptionServiceDao.getAvgMonthFee(subService.categoryId);
 
-    await Membership.findAll({
-        include: [
-            {
-                model: ComparisonValue,
-
-                include: [
-                    {
-                        model: ComparisonItem,
-                        attributes: ['code', 'name', 'unit', 'type', 'sort'],
-                    },
-                ],
-
-                raw: true,
-                attributes: ['value'],
-            },
-        ],
-        //raw: true,
-        where: {
-            subscriptionServiceId: ssDto.id,
-        },
-        order: [
-            ['grade', 'ASC'],
-            [ComparisonValue, ComparisonItem, 'sort', 'ASC'],
-        ],
-    }).then((result) => {
-        memberships = result.map((el) => el.get({ plain: true }));
-    });
+    // 멤버십 리스크 조회
+    var memberships = await subscriptionServiceDao.getMembershipBySubscriptionServiceId(ssDto.id);
 
     // 카테고리의 비교항목 배열 탬플릿에 맞게 데이터 맞춤
     var template = subService.category.template.split(' ');
@@ -204,7 +70,6 @@ const getSubscriptionService = async (ssDto) => {
                 ) {
                     let value = memberships[mindex].comparisonValues[index].value;
                     memberships[mindex].comparisonValues[index].value = JSON.parse(value);
-                    logger.debug(JSON.parse(value));
                 }
                 comparisonValueArr.push(memberships[mindex].comparisonValues[index]);
                 index++;
@@ -223,81 +88,17 @@ const getSubscriptionService = async (ssDto) => {
 
 const getSubscriptionServiceSearch = async (ssDto) => {
     // subscriptionService 검색조건
-    let ssWhere = {
-        [sequelize.Op.or]: [
-            {
-                nameEng: {
-                    [sequelize.Op.like]: '%' + ssDto.query + '%',
-                },
-            },
-            {
-                nameKr: {
-                    [sequelize.Op.like]: '%' + ssDto.query + '%',
-                },
-            },
-            {
-                description: {
-                    [sequelize.Op.like]: '%' + ssDto.query + '%',
-                },
-            },
-        ],
-    };
-
-    const result = await Category.findAll({
-        attributes: ['nameKr'],
-        include: [
-            {
-                model: SubscriptionService,
-                attributes: ['nameKr', 'nameEng', 'bigLogoPath', 'smallLogoPath', 'description'],
-                where: ssWhere,
-            },
-        ],
-    });
-
-    return result;
+    return await subscriptionServiceDao.getSubscriptionServiceSearch(ssDto.query);
 };
 
-const getCompareSubscriptionService = async (ssDto) => {
-    const main = await ComparisonValue.findOne({
-        attributes: [sequelize.fn('avg', sequelize.cast(sequelize.col('value'), 'int4'))],
-        include: [
-            {
-                model: ComparisonItem,
-                where: {
-                    code: 'MONTH_FEE',
-                    categoryId: ssDto.categoryId,
-                },
-            },
-        ],
-        group: ['comparisonItem.id'],
-        raw: true,
-    });
-    /*
-    const main = await ComparisonItem.findAll({
-        attributes: [
-            sequelize.fn('SUM', sequelize.cast(sequelize.col('comparisonValues.value'), 'int4')),
-        ],
-        include: [
-            {
-                model: ComparisonValue,
-                attributes: ['value'],
-            },
-        ],
-        where: {
-            code: 'MONTH_FEE',
-            categoryId: ssDto.categoryId,
-        },
-        group: ['comparisonItem.id'],
-        raws: true,
-    });*/
-
-    return main;
+const getSubscriptionServiceCompare = async (ssDto) => {
+    return await subscriptionServiceDao.getSubscriptionServiceCompare();
 };
 
 module.exports = {
-    getSubscriptionService,
     getMainSubscriptionService,
     getSubscriptionServiceList,
+    getSubscriptionServiceDetail,
     getSubscriptionServiceSearch,
-    getCompareSubscriptionService,
+    getSubscriptionServiceCompare,
 };
