@@ -8,6 +8,7 @@ const {
 } = require('../models');
 const sequelize = require('sequelize');
 
+// MAIN
 const getMainSubscriptionService = async () => {
     const main = await Category.findAll({
         include: [
@@ -20,6 +21,7 @@ const getMainSubscriptionService = async () => {
     return main;
 };
 
+// LIST
 const getSubscriptionServiceList = async (categoryId, query, hashtags) => {
     // subscriptionService 검색조건
     let ssWhere = {
@@ -96,6 +98,7 @@ const getSubscriptionServiceById = async (subscriptionServiceId) => {
     });
 };
 
+// SEARCH
 const getSubscriptionServiceSearch = async (query) => {
     let ssWhere = {
         [sequelize.Op.or]: [
@@ -123,6 +126,7 @@ const getSubscriptionServiceSearch = async (query) => {
             {
                 model: SubscriptionService,
                 attributes: [
+                    'id',
                     'nameKr',
                     'nameEng',
                     'defaultLogoPath',

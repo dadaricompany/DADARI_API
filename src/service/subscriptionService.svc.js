@@ -92,7 +92,25 @@ const getSubscriptionServiceSearch = async (ssDto) => {
 };
 
 const getSubscriptionServiceCompare = async (ssDto) => {
-    return await subscriptionServiceDao.getSubscriptionServiceCompare();
+    var subService01 = await subscriptionServiceDao.getSubscriptionServiceById(
+        ssDto.subscriptionServiceId01
+    );
+    var subService02 = await subscriptionServiceDao.getSubscriptionServiceById(
+        ssDto.subscriptionServiceId02
+    );
+
+    // 멤버십 리스크 조회
+    subService01.dataValues.memberships =
+        await subscriptionServiceDao.getMembershipBySubscriptionServiceId(
+            ssDto.subscriptionServiceId01
+        );
+    subService02.dataValues.memberships =
+        await subscriptionServiceDao.getMembershipBySubscriptionServiceId(
+            ssDto.subscriptionServiceId02
+        );
+
+    var result = [subService01, subService02];
+    return result;
 };
 
 module.exports = {
