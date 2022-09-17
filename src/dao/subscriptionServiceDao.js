@@ -196,7 +196,7 @@ const getMembershipBySubscriptionServiceId = async (subscriptionServiceId) => {
                 include: [
                     {
                         model: ComparisonItem,
-                        attributes: ['code', 'name', 'unit', 'type', 'sort'],
+                        attributes: ['code', 'name', 'unit', 'type', 'imgUrl', 'sort'],
                     },
                 ],
 
