@@ -176,7 +176,7 @@ router.get(
  *      schema:
  *       type: integer
  *    - in: query
- *      name: subscriptionServiceId01
+ *      name: subscriptionServiceId02
  *      required: true
  *      schema:
  *       type: integer
