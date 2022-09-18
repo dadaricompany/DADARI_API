@@ -20,7 +20,7 @@ module.exports = class ComparisonItem extends Sequelize.Model {
                     type: Sequelize.STRING(20),
                     allowNull: false,
                 },
-                imgUrl: {
+                imgPath: {
                     type: Sequelize.STRING(50),
                     allowNull: false,
                 },
