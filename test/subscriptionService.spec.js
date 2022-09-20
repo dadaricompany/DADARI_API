@@ -3,26 +3,24 @@ const should = require('should');
 const app = require('../app.js');
 //const models = require('../src/models');
 const logger = require('../config/winston.js');
-const {
-    subscriptionServices,
-    memberships,
-    hashtag,
-    subscriptionServiceHashtag,
-    category,
-    comparisonItems,
-    comparisonValues,
-} = require('./data/data.js');
+const subscriptionServices = require('./data/subscriptionService');
+const memberships = require('./data/membership');
+const hashtags = require('./data/hashtag');
+const subscriptionServiceHashtags = require('./data/subscriptionServiceHashtag');
+const categories = require('./data/category');
+const comparisonItems = require('./data/comparisonItem');
+const comparisonValues = require('./data/comparisonValue');
 
 describe('GET /subscriptionService는', () => {
     before(async () => {
         await app.models.sequelize
             .sync({ force: true })
             .then(async () => {
-                await app.models.Category.bulkCreate(category);
-                await app.models.Hashtag.bulkCreate(hashtag);
+                await app.models.Category.bulkCreate(categories);
+                await app.models.Hashtag.bulkCreate(hashtags);
                 await app.models.SubscriptionService.bulkCreate(subscriptionServices);
 
-                await app.models.SubscriptionServiceHashtag.bulkCreate(subscriptionServiceHashtag);
+                await app.models.SubscriptionServiceHashtag.bulkCreate(subscriptionServiceHashtags);
                 await app.models.Membership.bulkCreate(memberships);
                 await app.models.ComparisonItem.bulkCreate(comparisonItems);
                 await app.models.ComparisonValue.bulkCreate(comparisonValues);
