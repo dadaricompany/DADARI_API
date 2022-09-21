@@ -23,6 +23,12 @@ const memberships = [
         grade: 1,
         subscriptionServiceId: 2,
     },
+    {
+        id: 5,
+        name: '기본',
+        grade: 1,
+        subscriptionServiceId: 3,
+    },
 ];
 
 module.exports = memberships;

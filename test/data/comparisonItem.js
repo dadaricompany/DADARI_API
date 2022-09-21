@@ -1,4 +1,5 @@
 const comparisonItems = [
+    // OTT
     {
         id: 1,
         code: 'MONTH_FEE',

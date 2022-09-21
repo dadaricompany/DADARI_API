@@ -196,6 +196,56 @@ const comparisonValues = [
         comparisonItemId: 8,
         membershipId: 4,
     },
+
+    // 유튜브 프리미엄
+    {
+        id: 33,
+        value: '9900',
+        comparisonItemId: 1,
+        membershipId: 5,
+    },
+    {
+        id: 34,
+        value: '다양한 컨텐츠를 광고 없이 시청할 수 있는 서비스월트 디즈니 컴퍼니의 미디어와 엔터테인먼트 배급 부서가 운영하는 구독형 OTT 서비스',
+        comparisonItemId: 2,
+        membershipId: 5,
+    },
+    {
+        id: 35,
+        value: '4',
+        comparisonItemId: 3,
+        membershipId: 5,
+    },
+    {
+        id: 36,
+        value: '월 또는 년 단위',
+        comparisonItemId: 4,
+        membershipId: 5,
+    },
+    {
+        id: 37,
+        value: '모든 인터넷 연결 지원 디바이스',
+        comparisonItemId: 5,
+        membershipId: 5,
+    },
+    {
+        id: 38,
+        value: '없음',
+        comparisonItemId: 6,
+        membershipId: 5,
+    },
+    {
+        id: 39,
+        value: '마블 및 디즈니 컨텐츠 제공\nSK, LG U+, KT 통신사 제휴',
+        comparisonItemId: 7,
+        membershipId: 5,
+    },
+    {
+        id: 40,
+        value: '{ "labels": ["영화", "기타"], "data": ["20000", "50000"] }',
+        comparisonItemId: 8,
+        membershipId: 5,
+    },
 ];
 
 module.exports = comparisonValues;
