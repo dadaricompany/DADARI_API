@@ -43,6 +43,8 @@ app.models = db;
 var safesitelist = [
   'http://localhost:3000',
   'https://dadari-web.vercel.app',
+  'https://www.dadari.kr',
+  'https://www.dadari.co.kr',
 ];
 
 var corsOptions = {
