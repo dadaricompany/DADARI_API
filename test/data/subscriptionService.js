@@ -32,9 +32,9 @@ const subscriptionServices = [
         id: 3,
         nameEng: 'disney plus',
         nameKr: '디즈니플러스',
-        defaultLogoPath: '/images/logo/default/disney.png',
-        detailLogoPath: '/images/logo/detail/disney.png',
-        listLogoPath: '/images/logo/list/disney.png',
+        defaultLogoPath: '/images/logo/default/disneyplus.png',
+        detailLogoPath: '/images/logo/detail/disneyplus.png',
+        listLogoPath: '/images/logo/list/disneyplus.png',
         mainUrl: 'https://www.disneyplus.com/ko-kr',
         policyUrl:
             'https://www.disneyplus.com/ko-kr/legal/%EB%94%94%EC%A6%88%EB%8B%88%2B-%EC%9D%B4%EC%9A%A9%EC%95%BD%EA%B4%80',
