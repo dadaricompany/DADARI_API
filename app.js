@@ -40,7 +40,10 @@ if (process.env.NODE_ENV !== 'test') {
 
 app.models = db;
 
-var safesitelist = ['http://localhost:3000'];
+var safesitelist = [
+  'http://localhost:3000',
+  'https://dadari-web.vercel.app',
+];
 
 var corsOptions = {
     origin: function (origin, callback) {
