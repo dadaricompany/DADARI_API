@@ -17,7 +17,7 @@ const categories = [
         smallLogoPath: '/images/category/main/music.png',
         bigLogoPath: '/images/category/list/music.png',
         sort: 2,
-        template: '1 2 2 2 1',
+        template: '1 2 2 2',
     },
     {
         id: 3,
@@ -27,7 +27,7 @@ const categories = [
         smallLogoPath: '/images/category/main/book.png',
         bigLogoPath: '/images/category/list/book.png',
         sort: 3,
-        template: '1 2 2 2 1',
+        template: '1 2 2 2',
     },
     {
         id: 4,
@@ -37,7 +37,7 @@ const categories = [
         smallLogoPath: '/images/category/main/cloth.png',
         bigLogoPath: '/images/category/list/cloth.png',
         sort: 4,
-        template: '1 2 2 2 1',
+        template: '1 2 2 2',
     },
     {
         id: 5,
@@ -47,7 +47,7 @@ const categories = [
         smallLogoPath: '/images/category/main/ecommerce.png',
         bigLogoPath: '/images/category/list/ecommerce.png',
         sort: 5,
-        template: '1 2 2 2 1',
+        template: '1 2 2 2',
     },
     {
         id: 6,
@@ -57,7 +57,7 @@ const categories = [
         smallLogoPath: '/images/category/main/food.png',
         bigLogoPath: '/images/category/list/food.png',
         sort: 6,
-        template: '1 2 2 2 1',
+        template: '1 2 2 2',
     },
     {
         id: 7,
@@ -67,7 +67,7 @@ const categories = [
         smallLogoPath: '/images/category/main/drink.png',
         bigLogoPath: '/images/category/list/drink.png',
         sort: 7,
-        template: '1 2 2 2 1',
+        template: '1 2 2 2',
     },
     {
         id: 8,
@@ -77,7 +77,7 @@ const categories = [
         smallLogoPath: '/images/category/main/more.png',
         bigLogoPath: '/images/category/list/more.png',
         sort: 8,
-        template: '1 2 2 2 1',
+        template: '1 2 2 2',
     },
 ];
 

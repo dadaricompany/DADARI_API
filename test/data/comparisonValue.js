@@ -1,5 +1,6 @@
 const comparisonValues = [
-    // 넷플릭스 베이식
+    // 넷플릭스
+    // 넷플릭스 베이식(1)
     {
         id: 1,
         value: '9500',
@@ -48,7 +49,8 @@ const comparisonValues = [
         comparisonItemId: 8,
         membershipId: 1,
     },
-    // 넷플릭스 스텐다드
+
+    // 넷플릭스 스텐다드(2)
     {
         id: 9,
         value: '12000',
@@ -97,7 +99,8 @@ const comparisonValues = [
         comparisonItemId: 8,
         membershipId: 2,
     },
-    // 넷플릭스 프리미엄
+
+    // 넷플릭스 프리미엄 (3)
     {
         id: 17,
         value: '17000',
@@ -146,105 +149,299 @@ const comparisonValues = [
         comparisonItemId: 8,
         membershipId: 3,
     },
-
-    // 유튜브 프리미엄
+    // 유튜브 1000
+    // 유튜브 기본(11)
     {
-        id: 25,
+        id: 1001,
         value: '10450',
         comparisonItemId: 1,
-        membershipId: 4,
+        membershipId: 11,
     },
     {
-        id: 26,
+        id: 1002,
         value: '다양한 컨텐츠를 광고 없이 시청할 수 있는 서비스',
         comparisonItemId: 2,
-        membershipId: 4,
+        membershipId: 11,
     },
     {
-        id: 27,
+        id: 1003,
         value: '1',
         comparisonItemId: 3,
-        membershipId: 4,
+        membershipId: 11,
     },
     {
-        id: 28,
+        id: 1004,
         value: '한 달 단위',
         comparisonItemId: 4,
-        membershipId: 4,
+        membershipId: 11,
     },
     {
-        id: 29,
+        id: 1005,
         value: '모든 인터넷 연결 지원 디바이스',
         comparisonItemId: 5,
-        membershipId: 4,
+        membershipId: 11,
     },
     {
-        id: 30,
+        id: 1006,
         value: '신규회원 한정 1개월 무료',
         comparisonItemId: 6,
-        membershipId: 4,
+        membershipId: 11,
     },
     {
-        id: 31,
+        id: 1007,
         value: '광고제거, 영상 다운로드, 백그라운드 재생\nSK, LG U+, KT 통신사 제휴',
         comparisonItemId: 7,
-        membershipId: 4,
+        membershipId: 11,
     },
     {
-        id: 32,
+        id: 1008,
         value: '{ "labels": ["영화", "기타"], "data": ["20000", "50000"] }',
         comparisonItemId: 8,
-        membershipId: 4,
+        membershipId: 11,
     },
 
-    // 유튜브 프리미엄
+    // 디즈니 플러스 2000
+    // 디즈니 플러스 기본 (21)
     {
-        id: 33,
+        id: 2001,
         value: '9900',
         comparisonItemId: 1,
-        membershipId: 5,
+        membershipId: 21,
     },
     {
-        id: 34,
+        id: 2002,
         value: '다양한 컨텐츠를 광고 없이 시청할 수 있는 서비스월트 디즈니 컴퍼니의 미디어와 엔터테인먼트 배급 부서가 운영하는 구독형 OTT 서비스',
         comparisonItemId: 2,
-        membershipId: 5,
+        membershipId: 21,
     },
     {
-        id: 35,
+        id: 2003,
         value: '4',
         comparisonItemId: 3,
-        membershipId: 5,
+        membershipId: 21,
     },
     {
-        id: 36,
+        id: 2004,
         value: '월 또는 년 단위',
         comparisonItemId: 4,
-        membershipId: 5,
+        membershipId: 21,
     },
     {
-        id: 37,
+        id: 2005,
         value: '모든 인터넷 연결 지원 디바이스',
         comparisonItemId: 5,
-        membershipId: 5,
+        membershipId: 21,
     },
     {
-        id: 38,
+        id: 2006,
         value: '없음',
         comparisonItemId: 6,
-        membershipId: 5,
+        membershipId: 21,
     },
     {
-        id: 39,
+        id: 2007,
         value: '마블 및 디즈니 컨텐츠 제공\nSK, LG U+, KT 통신사 제휴',
         comparisonItemId: 7,
-        membershipId: 5,
+        membershipId: 21,
     },
     {
-        id: 40,
+        id: 2008,
         value: '{ "labels": ["영화", "기타"], "data": ["20000", "50000"] }',
         comparisonItemId: 8,
-        membershipId: 5,
+        membershipId: 21,
+    },
+
+    // 애플 티비 플러스 3000
+    // 애플 티비 플러스 기본 (31)
+    {
+        id: 3001,
+        value: '6500',
+        comparisonItemId: 1,
+        membershipId: 31,
+    },
+    {
+        id: 3002,
+        value: '영화, 드라마, 애니',
+        comparisonItemId: 2,
+        membershipId: 31,
+    },
+    {
+        id: 3003,
+        value: '6',
+        comparisonItemId: 3,
+        membershipId: 31,
+    },
+    {
+        id: 3004,
+        value: '한 달 단위',
+        comparisonItemId: 4,
+        membershipId: 31,
+    },
+    {
+        id: 3005,
+        value: '모든 인터넷 연결 지원 디바이스',
+        comparisonItemId: 5,
+        membershipId: 31,
+    },
+    {
+        id: 3006,
+        value: '7일',
+        comparisonItemId: 6,
+        membershipId: 31,
+    },
+    {
+        id: 3007,
+        value: 'Apple 오리지널 컨텐츠 제공',
+        comparisonItemId: 7,
+        membershipId: 31,
+    },
+    {
+        id: 3008,
+        value: '{ "labels": ["영화", "기타"], "data": ["20000", "50000"] }',
+        comparisonItemId: 8,
+        membershipId: 31,
+    },
+
+    // 쿠팡플레이 4000
+    // 쿠팡플레이 기본 (41)
+    {
+        id: 4001,
+        value: '2900',
+        comparisonItemId: 1,
+        membershipId: 41,
+    },
+    {
+        id: 4002,
+        value: '스포츠 생중계, 영화, 드라마',
+        comparisonItemId: 2,
+        membershipId: 41,
+    },
+    {
+        id: 4003,
+        value: '5',
+        comparisonItemId: 3,
+        membershipId: 41,
+    },
+    {
+        id: 4004,
+        value: '한 달 단위',
+        comparisonItemId: 4,
+        membershipId: 41,
+    },
+    {
+        id: 4005,
+        value: '모든 인터넷 연결 지원 디바이스',
+        comparisonItemId: 5,
+        membershipId: 41,
+    },
+    {
+        id: 4006,
+        value: '1개월',
+        comparisonItemId: 6,
+        membershipId: 41,
+    },
+    {
+        id: 4007,
+        value: '쿠팡와우가입시 자동 사용\n생중계 컨텐츠',
+        comparisonItemId: 7,
+        membershipId: 41,
+    },
+    {
+        id: 4008,
+        value: '{ "labels": ["영화", "기타"], "data": ["20000", "50000"] }',
+        comparisonItemId: 8,
+        membershipId: 41,
+    },
+
+    // 음악 1000000
+    // 멜론 4000
+    // 멜론 기본 (10001)
+    {
+        id: 1004001,
+        value: '7900',
+        comparisonItemId: 101,
+        membershipId: 10001,
+    },
+    {
+        id: 1004002,
+        value: '음악',
+        comparisonItemId: 102,
+        membershipId: 10001,
+    },
+    {
+        id: 1004003,
+        value: '1',
+        comparisonItemId: 103,
+        membershipId: 10001,
+    },
+    {
+        id: 1004004,
+        value: '한 달 단위',
+        comparisonItemId: 104,
+        membershipId: 10001,
+    },
+    {
+        id: 1004005,
+        value: '모든 인터넷 연결 지원 디바이스',
+        comparisonItemId: 105,
+        membershipId: 10001,
+    },
+    {
+        id: 1004006,
+        value: '없음',
+        comparisonItemId: 106,
+        membershipId: 10001,
+    },
+    {
+        id: 1004007,
+        value: 'SK텔레콤 제휴\n스트리밍 가능',
+        comparisonItemId: 107,
+        membershipId: 10001,
+    },
+
+    // 벅스 5000
+    // 벅스 기본 (10011)
+    {
+        id: 1005001,
+        value: '7900',
+        comparisonItemId: 101,
+        membershipId: 10011,
+    },
+    {
+        id: 1005002,
+        value: '음악',
+        comparisonItemId: 102,
+        membershipId: 10011,
+    },
+    {
+        id: 1005003,
+        value: '1',
+        comparisonItemId: 103,
+        membershipId: 10011,
+    },
+    {
+        id: 1005004,
+        value: '한 달 단위',
+        comparisonItemId: 104,
+        membershipId: 10011,
+    },
+    {
+        id: 1005005,
+        value: '모든 인터넷 연결 지원 디바이스',
+        comparisonItemId: 105,
+        membershipId: 10011,
+    },
+    {
+        id: 1005006,
+        value: '첫달 100원, 6개원간 할인',
+        comparisonItemId: 106,
+        membershipId: 10011,
+    },
+    {
+        id: 1005007,
+        value: '라이브 앨범 아트',
+        comparisonItemId: 107,
+        membershipId: 10011,
     },
 ];
 
