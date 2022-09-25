@@ -177,8 +177,8 @@ const comparisonItems = [
     {
         id: 203,
         code: 'ACCESS_COUNT',
-        name: '동시 접속 가능 인원',
-        unit: '명',
+        name: '등록 가능 기기 수',
+        unit: '대',
         type: 'TEXT',
         imgPath: '/images/comparisonItem/hand.png',
         sort: 3,

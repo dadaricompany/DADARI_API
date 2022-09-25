@@ -67,6 +67,51 @@ const memberships = [
         grade: 1,
         subscriptionServiceId: 1002,
     },
+    // 바이브 10
+    /*
+    {
+        id: 10021,
+        name: '기본',
+        grade: 1,
+        subscriptionServiceId: 1003,
+    },
+    */
+
+    // 도서 20000
+    // 밀리의서제 0
+    {
+        id: 20001, // 전자책
+        name: '전자책',
+        grade: 1,
+        subscriptionServiceId: 2001,
+    },
+    {
+        id: 20002, //종이책
+        name: '종이책',
+        grade: 2,
+        subscriptionServiceId: 2001,
+    },
+    // 리비북스 10
+    {
+        id: 20011,
+        name: '기본',
+        grade: 1,
+        subscriptionServiceId: 2002,
+    },
+
+    // 에스 24 20
+    {
+        id: 20021,
+        name: '스탠다드',
+        grade: 1,
+        subscriptionServiceId: 2003,
+    },
+    {
+        id: 20022,
+        name: '프리미엄',
+        grade: 2,
+        subscriptionServiceId: 2003,
+    },
 ];
 
 module.exports = memberships;
