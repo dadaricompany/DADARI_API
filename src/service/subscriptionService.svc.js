@@ -1,5 +1,5 @@
 const logger = require('../../config/winston');
-const subscriptionServiceDao = require('../dao/subscriptionServiceDao');
+const subscriptionServiceDao = require('../dao/subscriptionService.dao');
 
 const getMainSubscriptionService = async () => {
     return await subscriptionServiceDao.getMainSubscriptionService();

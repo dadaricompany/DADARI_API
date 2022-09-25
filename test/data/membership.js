@@ -98,7 +98,6 @@ const memberships = [
         grade: 1,
         subscriptionServiceId: 2002,
     },
-
     // 에스 24 20
     {
         id: 20021,
@@ -111,6 +110,67 @@ const memberships = [
         name: '프리미엄',
         grade: 2,
         subscriptionServiceId: 2003,
+    },
+    // 교보문고 30
+    {
+        id: 20031,
+        name: 'sam베이직',
+        grade: 1,
+        subscriptionServiceId: 2004,
+    },
+    {
+        id: 20032,
+        name: 'sam무제한',
+        grade: 2,
+        subscriptionServiceId: 2004,
+    },
+
+    // 의류 30000
+    // 패브 0
+    {
+        id: 30001,
+        name: '라이트',
+        grade: 1,
+        subscriptionServiceId: 3001,
+    },
+    {
+        id: 30002,
+        name: '베이직',
+        grade: 2,
+        subscriptionServiceId: 3001,
+    },
+    // 인더웨어
+    {
+        id: 30011,
+        name: '정기구독',
+        grade: 1,
+        subscriptionServiceId: 3002,
+    },
+    // 미하이삭스
+    {
+        id: 30021,
+        name: '정기구독',
+        grade: 1,
+        subscriptionServiceId: 3003,
+    },
+    // 미하이삭스
+    {
+        id: 30031,
+        name: '의류',
+        grade: 1,
+        subscriptionServiceId: 3004,
+    },
+    {
+        id: 30032,
+        name: '가방',
+        grade: 2,
+        subscriptionServiceId: 3004,
+    },
+    {
+        id: 30033,
+        name: '투게더',
+        grade: 3,
+        subscriptionServiceId: 3004,
     },
 ];
 

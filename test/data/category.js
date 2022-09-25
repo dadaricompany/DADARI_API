@@ -37,7 +37,7 @@ const categories = [
         smallLogoPath: '/images/category/main/cloth.png',
         bigLogoPath: '/images/category/list/cloth.png',
         sort: 4,
-        template: '1 2 2 2',
+        template: '1 2 2 1',
     },
     {
         id: 5,

@@ -9,7 +9,16 @@ const hashtags = require('./data/hashtag');
 const subscriptionServiceHashtags = require('./data/subscriptionServiceHashtag');
 const categories = require('./data/category');
 const comparisonItems = require('./data/comparisonItem');
-const comparisonValues = require('./data/comparisonValue');
+
+//const comparisonValues = require('./data/comparisonValue');
+const comparisonValuesMovie = require('./data/comparisonValueMovie');
+const comparisonValuesMusic = require('./data/comparisonValueMusic');
+const comparisonValuesBook = require('./data/comparisonValueBook');
+const comparisonValuesCloth = require('./data/comparisonValueCloth');
+const comparisonValuesEcommerce = require('./data/comparisonValueEcommerce');
+const comparisonValuesFood = require('./data/comparisonValueFood');
+const comparisonValuesDrink = require('./data/comparisonValueDrink');
+const comparisonValuesMore = require('./data/comparisonValueMore');
 
 describe('GET /subscriptionService는', () => {
     before(async () => {
@@ -23,7 +32,16 @@ describe('GET /subscriptionService는', () => {
                 await app.models.SubscriptionServiceHashtag.bulkCreate(subscriptionServiceHashtags);
                 await app.models.Membership.bulkCreate(memberships);
                 await app.models.ComparisonItem.bulkCreate(comparisonItems);
-                await app.models.ComparisonValue.bulkCreate(comparisonValues);
+
+                //await app.models.ComparisonValue.bulkCreate(comparisonValues);
+                await app.models.ComparisonValue.bulkCreate(comparisonValuesMovie);
+                await app.models.ComparisonValue.bulkCreate(comparisonValuesMusic);
+                await app.models.ComparisonValue.bulkCreate(comparisonValuesBook);
+                await app.models.ComparisonValue.bulkCreate(comparisonValuesCloth);
+                await app.models.ComparisonValue.bulkCreate(comparisonValuesEcommerce);
+                await app.models.ComparisonValue.bulkCreate(comparisonValuesFood);
+                await app.models.ComparisonValue.bulkCreate(comparisonValuesDrink);
+                await app.models.ComparisonValue.bulkCreate(comparisonValuesMore);
             })
             .catch((err) => {
                 console.error('>>>>', err);
@@ -92,7 +110,7 @@ describe('GET /subscriptionService는', () => {
     describe('구독서비스 상세 조회시', () => {
         it('구독서비스 정보를 담은 객체응답한다 ', (done) => {
             request(app)
-                .get('/subscriptionService/1')
+                .get('/subscriptionService/2003')
                 .end((err, res) => {
                     res.body.should.be.instanceOf(Object);
                     done();
