@@ -207,7 +207,7 @@ const comparisonValues = [
     },
     {
         id: 3003009,
-        value: '의류 대여',
+        value: '가방 대여',
         comparisonItemId: 303, // 제공서비스
         membershipId: 30032,
     },

@@ -172,6 +172,78 @@ const memberships = [
         grade: 3,
         subscriptionServiceId: 3004,
     },
+
+    // 이커머스 40000
+    // 마켓컬리 0
+    {
+        id: 40001,
+        name: '컬리패스',
+        grade: 1,
+        subscriptionServiceId: 4001,
+    },
+    // 쿠팡 10
+    {
+        id: 40011,
+        name: '로켓와우',
+        grade: 1,
+        subscriptionServiceId: 4002,
+    },
+    // 네이버맴버십 20
+    {
+        id: 40021,
+        name: '네이버플러스 멤버십',
+        grade: 1,
+        subscriptionServiceId: 4003,
+    },
+    // 스마일클럽 30
+    {
+        id: 40031,
+        name: '스마일클럽',
+        grade: 1,
+        subscriptionServiceId: 4004,
+    },
+
+    // 이커머스 50000
+    // 요기요 0
+    {
+        id: 50001,
+        name: '요기요',
+        grade: 1,
+        subscriptionServiceId: 5001,
+    },
+    // 슬림쿡 10
+    {
+        id: 50011,
+        name: '기본',
+        grade: 1,
+        subscriptionServiceId: 5002,
+    },
+    // 스낵24 20
+    {
+        id: 50021,
+        name: '기본',
+        grade: 1,
+        subscriptionServiceId: 5003,
+    },
+    // 리얼후르츠 30
+    {
+        id: 50031,
+        name: 'Single Box',
+        grade: 1,
+        subscriptionServiceId: 5004,
+    },
+    {
+        id: 50032,
+        name: 'Double Box',
+        grade: 2,
+        subscriptionServiceId: 5004,
+    },
+    {
+        id: 50033,
+        name: 'Premium Box',
+        grade: 3,
+        subscriptionServiceId: 5004,
+    },
 ];
 
 module.exports = memberships;

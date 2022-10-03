@@ -47,7 +47,7 @@ const categories = [
         smallLogoPath: '/images/category/main/ecommerce.png',
         bigLogoPath: '/images/category/list/ecommerce.png',
         sort: 5,
-        template: '1 2 2 2',
+        template: '1 2 2 1 1',
     },
     {
         id: 6,
@@ -57,7 +57,7 @@ const categories = [
         smallLogoPath: '/images/category/main/food.png',
         bigLogoPath: '/images/category/list/food.png',
         sort: 6,
-        template: '1 2 2 2',
+        template: '1 2 2 1',
     },
     {
         id: 7,
