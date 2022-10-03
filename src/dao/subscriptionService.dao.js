@@ -133,6 +133,7 @@ const getSubscriptionServiceSearch = async (query) => {
                     'detailLogoPath',
                     'listLogoPath',
                     'description',
+                    'categoryId',
                 ],
                 where: ssWhere,
             },
